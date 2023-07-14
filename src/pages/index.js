@@ -13,7 +13,12 @@ export default function Home() {
   }, [])
 
   const socketInitializer = async () => {
-    socket = io('http://localhost:3000/')
+    socket = io('/', {
+      withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd"
+      }
+    })
   }
 
   const sendMessage = async () => {
@@ -59,7 +64,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <iframe className='w-full' style={{height: 90 + 'vh'}}  src='http://localhost:3000/products/the-3p-fulfilled-snowboard'></iframe>
+      <iframe className='w-full' style={{height: 90 + 'vh'}}  src='http://localhost:3000/'></iframe>
     </main>
   )
 }
