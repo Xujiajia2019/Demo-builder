@@ -1,6 +1,5 @@
 "use client"
 import { useState} from "react"
-// import { generateCompletion } from "@/utils/generateCompletion";
 
 function StepOne(props) {
 
@@ -20,7 +19,6 @@ function StepOne(props) {
 }
 
 function StepTwo(props) {
-
   function handleChange(event) {
     props.setRequirements(event.target.value);
   }
@@ -37,7 +35,6 @@ function StepTwo(props) {
 }
 
 function StepThree(props) {
-
   function handleChange(event) {
     props.setUIRequirements(event.target.value);
   }
@@ -59,55 +56,18 @@ export default function Index() {
   const [requirements, setRequirements] = useState("");
   const [uiRequirements, setUIRequirements] = useState("");
 
+  const [response, setResponse] = useState("");
+
   function handleNext() {
     setStep(step + 1);
   }
 
   const url = 'https://api.dify.ai/v1/chat-messages'
 
-  async function getBestMatchTemplate(requirements) {
-    const SECRET_KEY = 'app-lGjGNpPo4E28Rtx0if4EbX7P';
-    const prompt = `${requirements}.Only output with template name with no other words or punctuation, even if the Answer.The output needs to be exactly the same as the data given. Output example:temp_1`;
-
-    const headers = {
-      'Authorization': `Bearer ${SECRET_KEY}`,
-      'Content-Type': 'application/json'
-    };
-  
-    const payload = {
-      "inputs": {},
-      "query": prompt,
-      "response_mode": "blocking",
-      "user": "abc-123"
-    };
-  
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        const response_data = await response.json();
-        console.log(response_data);
-
-        // const best_match_template = response_data['answer'];
-        // const extractedTemplate = extractTemplate(best_match_template);
-        // setUIRequirements(extractedTemplate);
-      } else {
-        // Handle error response
-        console.error('Request failed with status:', response.status);
-      }
-    } catch (error) {
-      // Handle network error
-      console.error('Network error:', error);
-    }
-  }
-
   async function handleSubmit() {
     const prompt = uiRequirements
-    const response = await fetch("/api/generateCompletion", {
+    console.log(prompt)
+    const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -117,12 +77,9 @@ export default function Index() {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    let answer = await response.json();
-    console.log(answer.choices[0].text)
+    const data = await response.json();
+    console.log(data)
+    setResponse(data)
   }
 
   return (
@@ -135,6 +92,7 @@ export default function Index() {
             {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
             {step === 2 && <StepTwo onNext={handleNext} requirements={requirements} setRequirements={setRequirements} />}
             {step === 3 && <StepThree onSubmit={handleSubmit} uiRequirements={uiRequirements} setUIRequirements={setUIRequirements}/>}
+            {response}
           </div>
         </div>
       </div>
