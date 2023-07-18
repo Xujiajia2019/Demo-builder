@@ -1,0 +1,288 @@
+[
+  {
+    "section": "ImageBanner",
+    "props": {
+      "figure": {
+        "image": {
+          "altText": "",
+          "requirements": "",
+          "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+        }
+      },
+      "heading": {
+        "requirements": "The name of a main product, attractive and short, most 8 words",
+        "value": ""
+      },
+      "description": {
+        "requirements": "A brief description of the main product, unique selling point",
+        "value": ""
+      },
+      "cta_1_text": {
+        "requirements": "",
+        "value": "Shop Now →"
+      },
+      "cta_1_link": {
+        "value": ""
+      }
+    }
+  },
+  {
+    "section": "ImagewithText",
+    "props": {
+      "figure": {
+        "image": {
+          "altText": "",
+          "requirements": "",
+          "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+        }
+      },
+      "image_first": false,
+      "heading": {
+        "value": "",
+        "requirements": "Overview of brand or product advantages"
+      },
+      "description": {
+        "value": "",
+        "requirements": "Description of brand or product advantages, unique selling points"
+      },
+      "cta_1_text": {
+        "value": "Learn more →",
+        "requirements": ""
+      },
+      "cta_1_link": {
+        "value": ""
+      }
+    }
+  },
+  {
+    "section": "ImageCards",
+    "props": {
+      "heading": {
+        "value": "",
+        "requirements": "Latest news section title"
+      },
+      "description": {
+        "value": "",
+        "requirements": "Benefits of knowing the latest news,user perspective."
+      },
+      "blocks": [
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "",
+            "requirements": "News title"
+          },
+          "description": {
+            "value": "",
+            "requirements": "News brief"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "",
+            "requirements": "News title"
+          },
+          "description": {
+            "value": "",
+            "requirements": "News brief"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "",
+            "requirements": "News title"
+          },
+          "description": {
+            "value": "",
+            "requirements": "News brief"
+          }
+        }
+      ]     
+    }
+  },
+  {
+    "section": "ImageGrid",
+    "props": {
+      "heading": {
+        "value": "",
+        "requirements": "Title of the brand philosophy section, corporate values, help users understand the brand"
+      },
+      "blocks": [
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "",
+            "requirements": "One of brand Values"
+          },
+          "description": {
+            "value": "",
+            "requirements": "Description of brand values"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "",
+            "requirements": "One of brand Values"
+          },
+          "description": {
+            "value": "",
+            "requirements": "Description of brand values"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "",
+            "requirements": "One of brand Values"
+          },
+          "description": {
+            "value": "",
+            "requirements": "Description of brand values"
+          }
+        }
+      ]     
+    }
+  },
+  {
+    "section": "Testimonial",
+    "props": {
+      "heading": {
+        "value": "",
+        "requirements": "Title of Testimonials"
+      },
+      "blocks": [
+        {
+          "review": {
+            "value": "",
+            "requirements": "Customer reviews, positive"
+          },
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "customer": {
+            "value": "",
+            "requirements": "Customer name"
+          }
+        }
+      ]     
+    }
+  },
+  {
+    "section": "FeaturedCollection",
+    "props": {
+      "heading": {
+        "value": "",
+        "requirements": "Featured products section title"
+      },
+      "products": [
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "",
+            "requirements": "Product price"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "",
+            "requirements": "Product price"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "",
+            "requirements": "Product price"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "",
+            "requirements": "Product price"
+          }
+        }
+      ]     
+    }
+  }
+]

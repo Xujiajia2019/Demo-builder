@@ -20,7 +20,7 @@ export async function POST (req) {
       const data = res.data.choices[0].message.content
       return NextResponse.json(data)
     } catch (error) {
-      console.log(`Completion error` + error)
+      console.log(`Completion error: ` + error)
       return NextResponse.json({ error: "error", status:404})
     }
     
