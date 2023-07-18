@@ -66,7 +66,6 @@ export default function Index() {
 
   async function handleSubmit() {
     const prompt = uiRequirements
-    console.log(prompt)
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -78,7 +77,6 @@ export default function Index() {
     });
 
     const data = await response.json();
-    console.log(data)
     setResponse(data)
   }
 
