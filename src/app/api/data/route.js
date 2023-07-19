@@ -86,19 +86,19 @@ const getImageRequirementsJson = async (schema, uiRequirements) => {
 }
 
 const getImageJson = async (schema) => {
-  const data = JSON.parse(schema)
+  const data = schema
   if (data) {
     try {
       for (const section of data) {
         for (const [key, value] of Object.entries(section.props)) {
           if (key === 'figure') {
             const image_requirements = value.image.requirements;
-            const response = await openai.Image.create({
+            const response = await openai.createImage({
               prompt: image_requirements,
               n: 1,
               size: "1024x1024",
             });
-            const image_url = response.data[0].url;
+            const image_url = response.data.data[0].url;
             value.image.url = image_url;
           }
           if (key === 'blocks') {
@@ -107,12 +107,12 @@ const getImageJson = async (schema) => {
                 if (block_key === 'figure') {
                   const image_requirements = block_value.image.requirements;
                   if (image_requirements) {
-                    const response = await openai.Image.create({
+                    const response = await openai.createImage({
                       prompt: image_requirements,
                       n: 1,
                       size: "1024x1024",
                     });
-                    const image_url = response.data[0].url;
+                    const image_url = response.data.data[0].url;
                     block_value.image.url = image_url;
                   }
                 }
@@ -127,20 +127,6 @@ const getImageJson = async (schema) => {
       return NextResponse.json({ error: "error", status:404})
     }
   }
-
-  try {
-    const res = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {"role": "user", "content": prompt}
-      ]
-    })
-    const data = res.data.choices[0].message.content
-    return data
-  } catch (error) {
-    console.log(`Generate image requirements error: ` + error)
-    return ({ error: "error", status:404})
-  }
 }
 
 
@@ -152,14 +138,18 @@ export async function POST(req) {
     const uiRequirements = request.uiRequirements
 
     if (sections !== undefined) {
-      const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
-
-      const sectionContentJson = getSectionContentJson(sections, schemaData);
-      const copyJson = await getCopyJson(JSON.stringify(sectionContentJson), type)
-      const imageRequirementsJson = await getImageRequirementsJson(copyJson, uiRequirements)
-      const imageJson = await getImageJson(imageRequirementsJson)
-
-      return NextResponse.json(imageJson);
+      // const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
+      // const sectionContentJson = getSectionContentJson(sections, schemaData);
+      // const copyJson = await getCopyJson(JSON.stringify(sectionContentJson), type)
+      // const imageRequirementsJson = await getImageRequirementsJson(copyJson, uiRequirements)
+      // const imageJson = await getImageJson(imageRequirementsJson)
+      
+      const imageJson = "xixi"
+      const resultFilePath = path.join(process.cwd(), "data", "module.json");
+      
+      fs.writeFile(resultFilePath, imageJson, (err) => {
+        return NextResponse.json(imageJson);    
+      });
     } else {
       return NextResponse.json({ error: "Missing parameters", status:400 });
     }

@@ -1,5 +1,6 @@
 "use client"
 import { useState} from "react"
+import { useRouter } from 'next/router';
 
 function StepOne(props) {
 
@@ -8,13 +9,13 @@ function StepOne(props) {
   }
 
   return (
-    <div>
+    <form onSubmit={(event) => props.onNext(event)}>
       <label className="label">
         <span>What is your product type?</span>
       </label>
       <input value={props.productType} onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <button className="btn btn-neutral mt-4" onClick={props.onNext}>Next Step</button>
-    </div>
+      <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
+    </form>
   )
 }
 
@@ -23,14 +24,14 @@ function StepTwo(props) {
     props.setRequirements(event.target.value);
   }
   return (
-    <div>
+    <form onSubmit={(event) => props.onNext(event)}>
       <label className="label">
         <span>What is your requirements?</span>
       </label>
       <input value={props.requirements}
         onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <button className="btn btn-neutral mt-4" onClick={props.onNext}>Next Step</button>
-    </div>
+      <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
+    </form>
   )
 }
 
@@ -39,14 +40,14 @@ function StepThree(props) {
     props.setUIRequirements(event.target.value);
   }
   return (
-    <div>
+    <form onSubmit={(event) => props.onSubmit(event)}>
       <label className="label">
         <span>What is your UI requirements?</span>
       </label>
       <input value={props.uiRequirements}
         onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <button className="btn mt-4 btn-primary" onClick={props.onSubmit}>Start building</button>
-    </div>
+      <button type="submit" className={props.isLoading ? "btn mt-4 btn-primary loading" : "btn mt-4 btn-primary"}>Start building</button>
+    </form>
   )
 }
 
@@ -55,12 +56,14 @@ export default function Index() {
   const [productType, setProductType] = useState("");
   const [requirements, setRequirements] = useState("");
   const [uiRequirements, setUIRequirements] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [response, setResponse] = useState("");
 
   const url = 'https://api.dify.ai/v1/chat-messages'
 
-  function handleNext() {
+  function handleNext(event) {
+    event.preventDefault()
     setStep(step + 1);
   }
 
@@ -234,7 +237,9 @@ export default function Index() {
     }
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event.preventDefault()
+    setLoading(true)
     // // 1. 根据页面要求获取 Template
     // const bestMatchTemplate = await findBestMatchTemplate()
 
@@ -258,6 +263,9 @@ export default function Index() {
     // const resultData = await generateImage(imageRequirementsData)
 
     console.log(`resultData: ${resultData}`)
+    setLoading(false)
+    // const router = useRouter();
+    // router.push('/home');
 
     // 8. 根据 UI 要求进行 style 模板选择
 
@@ -289,7 +297,7 @@ export default function Index() {
             <h1 className="mb-5 text-5xl font-bold">Start building your website</h1>
             {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
             {step === 2 && <StepTwo onNext={handleNext} requirements={requirements} setRequirements={setRequirements} />}
-            {step === 3 && <StepThree onSubmit={handleSubmit} uiRequirements={uiRequirements} setUIRequirements={setUIRequirements}/>}
+            {step === 3 && <StepThree isLoading={loading} onSubmit={handleSubmit} uiRequirements={uiRequirements} setUIRequirements={setUIRequirements}/>}
             {response}
           </div>
         </div>

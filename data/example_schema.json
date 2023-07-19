@@ -217,7 +217,7 @@
         "value": "",
         "requirements": "Featured products section title"
       },
-      "products": [
+      "blocks": [
         {
           "figure": {
             "image": {
