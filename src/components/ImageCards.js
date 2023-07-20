@@ -26,7 +26,7 @@ export function ImageCards({
                   sizes="(min-width: 768px) 50vw, 100vw"
                   width={500}
                   height={500}
-                  alt=""
+                  alt="test"
                 />
               </div>
               <h2 className="mt-4 font-medium">{card.heading?.value}</h2>

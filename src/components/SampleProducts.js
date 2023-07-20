@@ -21,10 +21,11 @@ export function SampleProducts({
             <li key={index}>
               <div className="card-image aspect-[4/5]">
                 <Image
+                  style={{height: "100%"}}
                   className="object-cover w-full"
                   src={product.figure.image.url}
                   sizes="(min-width: 768px) 50vw, 100vw"
-                  alt=""
+                  alt="test"
                   width={500}
                   height={500}
                 />

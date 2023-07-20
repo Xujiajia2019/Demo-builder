@@ -1,6 +1,6 @@
 "use client"
 import { useState} from "react"
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'
 
 function StepOne(props) {
 
@@ -58,7 +58,7 @@ export default function Index() {
   const [uiRequirements, setUIRequirements] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [response, setResponse] = useState("");
+  const router = useRouter()
 
   const url = 'https://api.dify.ai/v1/chat-messages'
 
@@ -242,16 +242,22 @@ export default function Index() {
     setLoading(true)
     // // 1. 根据页面要求获取 Template
     // const bestMatchTemplate = await findBestMatchTemplate()
+    // console.log(bestMatchTemplate)
 
     // // 2. 根据模板数据获取对应模板的内容要求
     // const templateContent = await getTemplateContent(bestMatchTemplate)
+    // console.log(templateContent)
 
     // // 3. 根据模板内容要求获取对应的 section 组合
-    // const bestMatchSectionGroup = await findBestMatchSections(templateContent).replaceAll(' ', '')
-    const bestMatchSectionGroup = "ImageBanner,FeaturedCollection,ImagewithText,Testimonial"
+    // const bestMatchSection = await findBestMatchSections(templateContent)
+    // console.log(bestMatchSection)
+    // const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
+    // console.log(bestMatchSectionGroup)
+
+    const bestMatchSectionGroup = 'FeaturedCollection,ImageGrid,ImagewithText,Testimonial,ImagewithText'
 
     // 4. 根据 section 组合模板数据获取文案及图片
-    const resultData = await generateData(bestMatchSectionGroup, productType)
+    const resultData = await generateData(bestMatchSectionGroup, productType, requirements, uiRequirements)
 
     // // 4. 根据 section 及对应数据组合模板数据结构 JSON 文件
     // const sectionContentJson = await getSectionContentJson(bestMatchSectionGroup)
@@ -264,28 +270,7 @@ export default function Index() {
 
     console.log(`resultData: ${resultData}`)
     setLoading(false)
-    // const router = useRouter();
-    // router.push('/home');
-
-    // 8. 根据 UI 要求进行 style 模板选择
-
-    // 9. 部署页面
-
-    // 10. 重定向至对应页面
-
-    // console.log(sectionContentJson)
-    // const response = await fetch("/api/chat", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     prompt: uiPrompt,
-    //   }),
-    // });
-
-    // const data = await response.json();
-    // setResponse(data)
+    router.push('/project')
   }
 
   return (
@@ -298,7 +283,6 @@ export default function Index() {
             {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
             {step === 2 && <StepTwo onNext={handleNext} requirements={requirements} setRequirements={setRequirements} />}
             {step === 3 && <StepThree isLoading={loading} onSubmit={handleSubmit} uiRequirements={uiRequirements} setUIRequirements={setUIRequirements}/>}
-            {response}
           </div>
         </div>
       </div>

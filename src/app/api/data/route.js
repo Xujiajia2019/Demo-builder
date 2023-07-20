@@ -129,6 +129,18 @@ const getImageJson = async (schema) => {
   }
 }
 
+const writeFilePromise = (filepath, data) => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filepath,data, (err) => {
+      if(err) {
+        reject(err)
+      } else {
+        resolve()
+      }
+    })
+  })
+}
+
 
 export async function POST(req) {
   if (req.method === "POST") {
@@ -138,18 +150,21 @@ export async function POST(req) {
     const uiRequirements = request.uiRequirements
 
     if (sections !== undefined) {
-      // const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
-      // const sectionContentJson = getSectionContentJson(sections, schemaData);
-      // const copyJson = await getCopyJson(JSON.stringify(sectionContentJson), type)
-      // const imageRequirementsJson = await getImageRequirementsJson(copyJson, uiRequirements)
-      // const imageJson = await getImageJson(imageRequirementsJson)
+      const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
+      const sectionContentJson = getSectionContentJson(sections, schemaData);
+      const copyJson = await getCopyJson(JSON.stringify(sectionContentJson), type)
+      const imageRequirementsJson = await getImageRequirementsJson(copyJson, uiRequirements)
+      const imageJson = await getImageJson(imageRequirementsJson)
       
-      const imageJson = "xixi"
       const resultFilePath = path.join(process.cwd(), "data", "module.json");
       
-      fs.writeFile(resultFilePath, imageJson, (err) => {
-        return NextResponse.json(imageJson);    
-      });
+      try {
+        console.log(imageJson)
+        await writeFilePromise(resultFilePath, imageJson)
+        return NextResponse.json({write: true});
+      } catch (err) {
+        return NextResponse.json({ error: "Write file failed", status:401 });
+      }
     } else {
       return NextResponse.json({ error: "Missing parameters", status:400 });
     }

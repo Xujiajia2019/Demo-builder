@@ -31,7 +31,7 @@ export function ImageGrid({
                   sizes="(min-width: 768px) 50vw, 100vw"
                   width={500}
                   height={500}
-                  alt=""
+                  alt="test"
                 />
               </div>
               <div className='text-center pt-4'>
