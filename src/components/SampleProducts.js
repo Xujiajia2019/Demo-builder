@@ -3,7 +3,7 @@ import Image from 'next/image'
 export function SampleProducts({
   heading,
   description,
-  products,
+  blocks,
 }) {
   return (
     <section className='container mx-auto flex px-5 my-24 flex-col items-center'>
@@ -16,7 +16,7 @@ export function SampleProducts({
         )}
       </div>
       <ul className="grid grid-flow-row grid-cols-1 gap-2 gap-y-6 md:gap-4 lg:gap-6 false sm:grid-cols-4">
-        {products.map((product, index) => (
+        {blocks.map((product, index) => (
           product?.figure && (
             <li key={index}>
               <div className="card-image aspect-[4/5]">

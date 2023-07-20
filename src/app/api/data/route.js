@@ -27,18 +27,18 @@ const getSectionContentJson = (sections, schemaData) => {
 
 
 const getCopyJson = async (schema, type) => {
+  console.log(schema)
   const prompt = `You are an operator of an e-commerce website, and the product type of your website is ${type}.
+                  The given json is the data structure of the e-commerce site homepage:
+                  ${JSON.stringify(schema)}
+
                 Your task is to create copywriting according to the requirements of a field.
                 Requirements:
-                  - The content data structure of the e-commerce site is stored in JSON format below.
                   - Each field that needs to be populated with text has two keys, value and requirements.
                   - Requirements describes the content requirements for the field, and you need to generate the text and populate the value field with the requirements.
                   - If requirements is empty, it does not need to be processed.
                   - Do not change the JSON data structure.
                   - The output is in JSON format and the result must contain only JSON data and not any other descriptive text.
-                
-                The template json is:
-                ---${schema}---
                 `
   try {
     const res = await openai.createChatCompletion({
@@ -48,6 +48,8 @@ const getCopyJson = async (schema, type) => {
       ]
     })
     const data = res.data.choices[0].message.content
+    console.log('get copy success')
+    console.log(JSON.stringify(data))
     return data
   } catch (error) {
     console.log(`Generate copy error: ` + error)
@@ -56,6 +58,7 @@ const getCopyJson = async (schema, type) => {
 }
 
 const getImageRequirementsJson = async (schema, uiRequirements) => {
+  console.log(schema)
   const prompt = `You are a designer of an e-commerce website, and the product type of your website is {product_type}, the UI requirements are ${uiRequirements}.
                   Your task is generate image prompts based on the heading and description of each section on the home page, these prompts will be given to ai to generate the images.
                   Requirements:
@@ -67,6 +70,8 @@ const getImageRequirementsJson = async (schema, uiRequirements) => {
                     - All output fields should be in double quotes
                     - No need to format with line breaks
                     - No need to use any formatting symbols
+                    - You are not allowed to change the json structure
+                    - Output in json
 
                     ---${schema}---
                     `
@@ -78,7 +83,9 @@ const getImageRequirementsJson = async (schema, uiRequirements) => {
       ]
     })
     const data = res.data.choices[0].message.content
-    return data
+    console.log('get image requirements success')
+    console.log(JSON.stringify(data))
+    return JSON.stringify(data)
   } catch (error) {
     console.log(`Generate image requirements error: ` + error)
     return ({ error: "error", status:404})
@@ -86,20 +93,23 @@ const getImageRequirementsJson = async (schema, uiRequirements) => {
 }
 
 const getImageJson = async (schema) => {
-  const data = schema
+  const data = JSON.parse(schema)
+  console.log(data)
   if (data) {
     try {
       for (const section of data) {
         for (const [key, value] of Object.entries(section.props)) {
           if (key === 'figure') {
             const image_requirements = value.image.requirements;
-            const response = await openai.createImage({
-              prompt: image_requirements,
-              n: 1,
-              size: "1024x1024",
-            });
-            const image_url = response.data.data[0].url;
-            value.image.url = image_url;
+            if (image_requirements) {
+              const response = await openai.createImage({
+                prompt: image_requirements,
+                n: 1,
+                size: "1024x1024",
+              });
+              const image_url = response.data.data[0].url;
+              value.image.url = image_url;
+            }
           }
           if (key === 'blocks') {
             for (const block of value) {
@@ -121,10 +131,11 @@ const getImageJson = async (schema) => {
           }
         }
       }
+      console.log('get image success')
       return JSON.stringify(data);
     } catch (error) {
       console.log(`Generate image error: ` + error)
-      return NextResponse.json({ error: "error", status:404})
+      return ({ error: "error", status:404})
     }
   }
 }
@@ -152,8 +163,8 @@ export async function POST(req) {
     if (sections !== undefined) {
       const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
       const sectionContentJson = getSectionContentJson(sections, schemaData);
-      const copyJson = await getCopyJson(JSON.stringify(sectionContentJson), type)
-      const imageRequirementsJson = await getImageRequirementsJson(copyJson, uiRequirements)
+      const copyJson = await getCopyJson(sectionContentJson, type)
+      const imageRequirementsJson = await getImageRequirementsJson(JSON.stringify(copyJson), uiRequirements)
       const imageJson = await getImageJson(imageRequirementsJson)
       
       const resultFilePath = path.join(process.cwd(), "data", "module.json");

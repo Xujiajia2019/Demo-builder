@@ -13,7 +13,7 @@ function StepOne(props) {
       <label className="label">
         <span>What is your product type?</span>
       </label>
-      <input value={props.productType} onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
+      <input autoFocus value={props.productType} onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
       <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
     </form>
   )
@@ -28,7 +28,7 @@ function StepTwo(props) {
       <label className="label">
         <span>What is your requirements?</span>
       </label>
-      <input value={props.requirements}
+      <input autoFocus value={props.requirements}
         onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
       <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
     </form>
@@ -44,7 +44,7 @@ function StepThree(props) {
       <label className="label">
         <span>What is your UI requirements?</span>
       </label>
-      <input value={props.uiRequirements}
+      <input autoFocus value={props.uiRequirements}
         onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
       <button type="submit" className={props.isLoading ? "btn mt-4 btn-primary loading" : "btn mt-4 btn-primary"}>Start building</button>
     </form>
@@ -267,10 +267,31 @@ export default function Index() {
     // const imageRequirementsData = await generateImageRequirements(copyData)
     // // 7. 生成 JSON 文件对应图片
     // const resultData = await generateImage(imageRequirementsData)
+    
+    // console.log('ha')
+    // const data = JSON.parse(requirements)
+    // for (const section of data) {
+    //   for (const [key, value] of Object.entries(section.props)) {
+    //     if (key === 'figure') {
+    //       const image_requirements = value.image.requirements;
+    //       console.log(image_requirements)
+    //     }
+    //     if (key === 'blocks') {
+    //       for (const block of value) {
+    //         for (const [block_key, block_value] of Object.entries(block)) {
+    //           if (block_key === 'figure') {
+    //             const image_requirements = block_value.image.requirements;
+    //             console.log(image_requirements)
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     console.log(`resultData: ${resultData}`)
     setLoading(false)
-    router.push('/project')
+    // router.push('/project')
   }
 
   return (

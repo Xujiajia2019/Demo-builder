@@ -1,1 +1,213 @@
-[{"section":"ImageBanner","props":{"figure":{"image":{"altText":"Best Phone Deals XI","requirements":"A high-quality image showcasing the latest smartphones at unbeatable prices","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"heading":{"requirements":"The name of a main product, attractive and short, most 8 words","value":"Best Phone Deals"},"description":{"requirements":"A brief description of the main product, unique selling point","value":"Discover the latest smartphones at unbeatable prices"},"cta_1_text":{"requirements":"","value":"Shop Now →"},"cta_1_link":{"value":""}}},{"section":"FeaturedCollection","props":{"heading":{"value":"Featured Products","requirements":"Featured products section title"},"products":[{"figure":{"image":{"altText":"iPhone 12 Pro","requirements":"A high-quality image showcasing the iPhone 12 Pro","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"title":{"value":"iPhone 12 Pro","requirements":"Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"},"price":{"value":"$999","requirements":"Product price"}},{"figure":{"image":{"altText":"Samsung Galaxy S21 Ultra","requirements":"A high-quality image showcasing the Samsung Galaxy S21 Ultra","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"title":{"value":"Samsung Galaxy S21 Ultra","requirements":"Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"},"price":{"value":"$1299","requirements":"Product price"}},{"figure":{"image":{"altText":"Google Pixel 5","requirements":"A high-quality image showcasing the Google Pixel 5","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"title":{"value":"Google Pixel 5","requirements":"Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"},"price":{"value":"$699","requirements":"Product price"}},{"figure":{"image":{"altText":"OnePlus 9 Pro","requirements":"A high-quality image showcasing the OnePlus 9 Pro","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"title":{"value":"OnePlus 9 Pro","requirements":"Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"},"price":{"value":"$899","requirements":"Product price"}}]}},{"section":"ImagewithText","props":{"figure":{"image":{"altText":"Experience the Future","requirements":"A high-quality image showcasing the brand or product advantages","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"image_first":false,"heading":{"value":"Experience the Future","requirements":"Overview of brand or product advantages"},"description":{"value":"Stay connected with cutting-edge technology and stunning designs. Upgrade to the latest phone today!","requirements":"Description of brand or product advantages, unique selling points"},"cta_1_text":{"value":"Learn more →","requirements":""},"cta_1_link":{"value":""}}},{"section":"Testimonial","props":{"heading":{"value":"Customer Reviews","requirements":"Title of Testimonials"},"blocks":[{"review":{"value":"Amazing phone! The camera quality is outstanding and the performance is top-notch.","requirements":"Customer reviews, positive"},"figure":{"image":{"altText":"John Smith","requirements":"A picture of the customer who provided the review","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"customer":{"value":"John Smith","requirements":"Customer name"}},{"review":{"value":"I'm extremely satisfied with my new phone. It exceeded my expectations in every way.","requirements":"Customer reviews, positive"},"figure":{"image":{"altText":"Emily Johnson","requirements":"A picture of the customer who provided the review","url":"https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"}},"customer":{"value":"Emily Johnson","requirements":"Customer name"}}]}}]
+[
+  {
+    "section": "FeaturedCollection",
+    "props": {
+      "heading": {
+        "value": "Featured Products",
+        "requirements": "Featured products section title"
+      },
+      "blocks": [
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "Product 1",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "$19.99",
+            "requirements": "Product price"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "Product 2",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "$24.99",
+            "requirements": "Product price"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "Product 3",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "$29.99",
+            "requirements": "Product price"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "title": {
+            "value": "Product 4",
+            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
+          },
+          "price": {
+            "value": "$34.99",
+            "requirements": "Product price"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "section": "ImageGrid",
+    "props": {
+      "heading": {
+        "value": "Brand Philosophy",
+        "requirements": "Title of the brand philosophy section, corporate values, help users understand the brand"
+      },
+      "blocks": [
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "Value 1",
+            "requirements": "One of brand Values"
+          },
+          "description": {
+            "value": "Description of brand values",
+            "requirements": "Description of brand values"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "Value 2",
+            "requirements": "One of brand Values"
+          },
+          "description": {
+            "value": "Description of brand values",
+            "requirements": "Description of brand values"
+          }
+        },
+        {
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "heading": {
+            "value": "Value 3",
+            "requirements": "One of brand Values"
+          },
+          "description": {
+            "value": "Description of brand values",
+            "requirements": "Description of brand values"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "section": "ImagewithText",
+    "props": {
+      "figure": {
+        "image": {
+          "altText": "",
+          "requirements": "",
+          "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+        }
+      },
+      "image_first": false,
+      "heading": {
+        "value": "Product Advantages",
+        "requirements": "Overview of brand or product advantages"
+      },
+      "description": {
+        "value": "Description of brand or product advantages, unique selling points",
+        "requirements": "Description of brand or product advantages, unique selling points"
+      }
+    }
+  },
+  {
+    "section": "Testimonial",
+    "props": {
+      "heading": {
+        "value": "Customer Testimonials",
+        "requirements": "Title of Testimonials"
+      },
+      "blocks": [
+        {
+          "review": {
+            "value": "Great product! Highly recommended!",
+            "requirements": "Customer reviews, positive"
+          },
+          "figure": {
+            "image": {
+              "altText": "",
+              "requirements": "",
+              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+            }
+          },
+          "customer": {
+            "value": "John Doe",
+            "requirements": "Customer name"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "section": "ImagewithText",
+    "props": {
+      "figure": {
+        "image": {
+          "altText": "",
+          "requirements": "",
+          "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
+        }
+      },
+      "image_first": false,
+      "heading": {
+        "value": "Product Advantages",
+        "requirements": "Overview of brand or product advantages"
+      },
+      "description": {
+        "value": "Description of brand or product advantages, unique selling points",
+        "requirements": "Description of brand or product advantages, unique selling points"
+      }
+    }
+  }
+]

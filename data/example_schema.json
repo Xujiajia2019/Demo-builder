@@ -16,13 +16,6 @@
       "description": {
         "requirements": "A brief description of the main product, unique selling point",
         "value": ""
-      },
-      "cta_1_text": {
-        "requirements": "",
-        "value": "Shop Now →"
-      },
-      "cta_1_link": {
-        "value": ""
       }
     }
   },
@@ -44,13 +37,6 @@
       "description": {
         "value": "",
         "requirements": "Description of brand or product advantages, unique selling points"
-      },
-      "cta_1_text": {
-        "value": "Learn more →",
-        "requirements": ""
-      },
-      "cta_1_link": {
-        "value": ""
       }
     }
   },
@@ -222,6 +208,7 @@
           "figure": {
             "image": {
               "altText": "",
+              "requirements": "",
               "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
             }
           },
@@ -238,6 +225,7 @@
           "figure": {
             "image": {
               "altText": "",
+              "requirements": "",
               "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
             }
           },
@@ -254,6 +242,7 @@
           "figure": {
             "image": {
               "altText": "",
+              "requirements": "",
               "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
             }
           },
@@ -270,6 +259,7 @@
           "figure": {
             "image": {
               "altText": "",
+              "requirements": "",
               "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
             }
           },
