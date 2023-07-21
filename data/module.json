@@ -16,11 +16,11 @@
             }
           },
           "title": {
-            "value": "Product 1",
+            "value": "Cup A",
             "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
           },
           "price": {
-            "value": "$19.99",
+            "value": "$9.99",
             "requirements": "Product price"
           }
         },
@@ -33,11 +33,11 @@
             }
           },
           "title": {
-            "value": "Product 2",
+            "value": "Cup B",
             "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
           },
           "price": {
-            "value": "$24.99",
+            "value": "$12.99",
             "requirements": "Product price"
           }
         },
@@ -50,11 +50,11 @@
             }
           },
           "title": {
-            "value": "Product 3",
+            "value": "Cup C",
             "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
           },
           "price": {
-            "value": "$29.99",
+            "value": "$14.99",
             "requirements": "Product price"
           }
         },
@@ -67,11 +67,11 @@
             }
           },
           "title": {
-            "value": "Product 4",
+            "value": "Cup D",
             "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
           },
           "price": {
-            "value": "$34.99",
+            "value": "$8.99",
             "requirements": "Product price"
           }
         }
@@ -95,11 +95,11 @@
             }
           },
           "heading": {
-            "value": "Value 1",
+            "value": "Quality",
             "requirements": "One of brand Values"
           },
           "description": {
-            "value": "Description of brand values",
+            "value": "We value quality above all else. Our products are carefully crafted to ensure the best experience for our customers.",
             "requirements": "Description of brand values"
           }
         },
@@ -112,11 +112,11 @@
             }
           },
           "heading": {
-            "value": "Value 2",
+            "value": "Innovation",
             "requirements": "One of brand Values"
           },
           "description": {
-            "value": "Description of brand values",
+            "value": "We constantly strive for innovation and bring you the latest trends and technologies in the cup industry.",
             "requirements": "Description of brand values"
           }
         },
@@ -129,11 +129,11 @@
             }
           },
           "heading": {
-            "value": "Value 3",
+            "value": "Sustainability",
             "requirements": "One of brand Values"
           },
           "description": {
-            "value": "Description of brand values",
+            "value": "We are committed to protecting the environment and use eco-friendly materials in our cup production.",
             "requirements": "Description of brand values"
           }
         }
@@ -152,11 +152,11 @@
       },
       "image_first": false,
       "heading": {
-        "value": "Product Advantages",
+        "value": "Enjoy Every Sip",
         "requirements": "Overview of brand or product advantages"
       },
       "description": {
-        "value": "Description of brand or product advantages, unique selling points",
+        "value": "Our cups are designed to enhance your drinking experience and make every sip a delight. With their ergonomic design and quality materials, you'll love using our cups every day.",
         "requirements": "Description of brand or product advantages, unique selling points"
       }
     }
@@ -171,7 +171,7 @@
       "blocks": [
         {
           "review": {
-            "value": "Great product! Highly recommended!",
+            "value": "Amazing cup! It exceeded my expectations in terms of quality and design. Highly recommend!",
             "requirements": "Customer reviews, positive"
           },
           "figure": {
@@ -182,7 +182,7 @@
             }
           },
           "customer": {
-            "value": "John Doe",
+            "value": "John Smith",
             "requirements": "Customer name"
           }
         }
@@ -201,11 +201,11 @@
       },
       "image_first": false,
       "heading": {
-        "value": "Product Advantages",
+        "value": "Elevate Your Tea Experience",
         "requirements": "Overview of brand or product advantages"
       },
       "description": {
-        "value": "Description of brand or product advantages, unique selling points",
+        "value": "Our cups are specially designed for tea lovers. With their unique features, such as built-in infusers and thermal insulation, they will take your tea drinking experience to a whole new level.",
         "requirements": "Description of brand or product advantages, unique selling points"
       }
     }

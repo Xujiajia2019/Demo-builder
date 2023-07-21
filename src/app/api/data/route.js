@@ -27,18 +27,21 @@ const getSectionContentJson = (sections, schemaData) => {
 
 
 const getCopyJson = async (schema, type) => {
-  console.log(schema)
   const prompt = `You are an operator of an e-commerce website, and the product type of your website is ${type}.
-                  The given json is the data structure of the e-commerce site homepage:
+                  The JSON data structure is as follows:
+
                   ${JSON.stringify(schema)}
 
-                Your task is to create copywriting according to the requirements of a field.
-                Requirements:
-                  - Each field that needs to be populated with text has two keys, value and requirements.
-                  - Requirements describes the content requirements for the field, and you need to generate the text and populate the value field with the requirements.
-                  - If requirements is empty, it does not need to be processed.
-                  - Do not change the JSON data structure.
-                  - The output is in JSON format and the result must contain only JSON data and not any other descriptive text.
+                  Your task is to generate copywriting for each field in the JSON data that requires text. For each field, you should follow the content requirements specified in the 'requirements' object and populate the 'value' field with the generated text.
+
+                  Please note the following requirements:
+                    - The 'requirements' object describes the content requirements for each field.
+                    - If the 'requirements' object is empty, the field does not need to be processed.
+                    - Do not change the JSON data structure.
+                    - Do not change the JSON data structure.
+                    - The output should be in JSON format and should contain only the updated JSON data structure. The format of the output should be an array with the same structure as the input form, and all output fields should be in double quotes.
+
+                  Once you have generated copywriting for each field, AI will use it to populate the text on your e-commerce website.
                 `
   try {
     const res = await openai.createChatCompletion({
@@ -57,24 +60,22 @@ const getCopyJson = async (schema, type) => {
   }
 }
 
-const getImageRequirementsJson = async (schema, uiRequirements) => {
-  console.log(schema)
-  const prompt = `You are a designer of an e-commerce website, and the product type of your website is {product_type}, the UI requirements are ${uiRequirements}.
-                  Your task is generate image prompts based on the heading and description of each section on the home page, these prompts will be given to ai to generate the images.
-                  Requirements:
-                    - The content data structure of the e-commerce site is stored in JSON format delimited by triple quotes.
-                    - Each item in the array is a section, sections with image has 'figure.image' key, you should fill in the 'figure.image.requirements' according to heading and description. 
-                    - Do not change the JSON data structure.
-                    - The output is in JSON format and the result must contain only JSON data and not any other descriptive text.
-                    - The format of the output needs to be an array, with the same structure as the input form
-                    - All output fields should be in double quotes
-                    - No need to format with line breaks
-                    - No need to use any formatting symbols
-                    - You are not allowed to change the json structure
-                    - Output in json
+const getImageRequirementsJson = async (schema, type, uiRequirements) => {
+  const prompt = `You are a designer of an e-commerce website, and the product type of your website is ${type}.Please provide requirements for the images in the 'figure' object of each section in the JSON data.
+                  
+                  The JSON data structure is as follows:
+                  
+                  ${JSON.stringify(schema)}
 
-                    ---${schema}---
-                    `
+                  For each section in the 'sections' array that has an 'image' in the 'figure' object, please add the following requirements to the 'figure.image.requirements' object:
+                  - 'width': The width of the image in pixels.
+                  - 'height': The height of the image in pixels.
+                  - 'alt': The alt text for the image.
+
+                  Please do not change the JSON data structure.
+                  The output should be in JSON format and should contain only the updated JSON data structure. The format of the output should be an array with the same structure as the input form, and all output fields should be in double quotes.
+                  Once you have provided the requirements for each image, AI will use them to generate images for your e-commerce website.
+                  `
   try {
     const res = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -85,7 +86,7 @@ const getImageRequirementsJson = async (schema, uiRequirements) => {
     const data = res.data.choices[0].message.content
     console.log('get image requirements success')
     console.log(JSON.stringify(data))
-    return JSON.stringify(data)
+    return data
   } catch (error) {
     console.log(`Generate image requirements error: ` + error)
     return ({ error: "error", status:404})
@@ -164,7 +165,7 @@ export async function POST(req) {
       const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
       const sectionContentJson = getSectionContentJson(sections, schemaData);
       const copyJson = await getCopyJson(sectionContentJson, type)
-      const imageRequirementsJson = await getImageRequirementsJson(JSON.stringify(copyJson), uiRequirements)
+      const imageRequirementsJson = await getImageRequirementsJson(copyJson, type, uiRequirements)
       const imageJson = await getImageJson(imageRequirementsJson)
       
       const resultFilePath = path.join(process.cwd(), "data", "module.json");
