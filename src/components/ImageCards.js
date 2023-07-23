@@ -6,7 +6,7 @@ export function ImageCards({
   blocks
 }) {
   return (
-    <section className='container mx-auto flex px-5 my-24 flex-col items-center'>
+    <section className='container mx-auto flex px-5 py-8 flex-col items-center'>
       <div className='text-center'>
         <div className="max-w-xl">
           {heading?.value && (

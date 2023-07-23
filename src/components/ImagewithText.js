@@ -9,7 +9,7 @@ export function ImagewithText({
   image_first
 }) {
   return (
-    <section className={'container mx-auto flex px-5 my-24 flex-col items-center ' + (image_first ? 'md:flex-row' : 'md:flex-row-reverse')}>
+    <section className={'container mx-auto flex px-5 py-8 flex-col items-center ' + (image_first ? 'md:flex-row' : 'md:flex-row-reverse')}>
       <div className="md:w-1/2 w-5/6">
         <div className="card-image bg-primary/5 aspect-[3/2]">
           {figure?.image && (

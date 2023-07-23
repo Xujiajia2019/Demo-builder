@@ -32,12 +32,12 @@ const getCopyJson = async (schema, type) => {
 
                   ${JSON.stringify(schema)}
 
-                  Your task is to generate copywriting for each field in the JSON data that requires text. For each field, you should follow the content requirements specified in the 'requirements' object and populate the 'value' field with the generated text.
+                  Your task is to generate copywriting for each field in the JSON data that requires text according to the 'requirements'. For each field, you should follow the content requirements specified in the 'requirements' object and populate the 'value' field with the generated text.
 
                   Please note the following requirements:
                     - The 'requirements' object describes the content requirements for each field.
                     - If the 'requirements' object is empty, the field does not need to be processed.
-                    - Do not change the JSON data structure.
+                    - Don't just copy the 'requirements' to the 'value', but understand and generate real copy that can be used on your website, related to site-specific information, you can make it up.
                     - Do not change the JSON data structure.
                     - The output should be in JSON format and should contain only the updated JSON data structure. The format of the output should be an array with the same structure as the input form, and all output fields should be in double quotes.
 
@@ -67,10 +67,7 @@ const getImageRequirementsJson = async (schema, type, uiRequirements) => {
                   
                   ${JSON.stringify(schema)}
 
-                  For each section in the 'sections' array that has an 'image' in the 'figure' object, please add the following requirements to the 'figure.image.requirements' object:
-                  - 'width': The width of the image in pixels.
-                  - 'height': The height of the image in pixels.
-                  - 'alt': The alt text for the image.
+                  For each section in the 'sections' array that has an 'image' in the 'figure' object, please add requirements to the 'figure.image.requirements' object.The requested content should be a sentence of copy that has the basic information of the image. It can be generated based on other copywriting information in this section, such as heading.value.
 
                   Please do not change the JSON data structure.
                   The output should be in JSON format and should contain only the updated JSON data structure. The format of the output should be an array with the same structure as the input form, and all output fields should be in double quotes.

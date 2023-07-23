@@ -178,49 +178,25 @@ export default function Index() {
   async function handleSubmit(event) {
     event.preventDefault()
     setLoading(true)
-    // // 1. 根据页面要求获取 Template
-    // const bestMatchTemplate = await findBestMatchTemplate()
-    // console.log(bestMatchTemplate)
+    // 1. 根据页面要求获取 Template
+    const bestMatchTemplate = await findBestMatchTemplate()
 
-    // // 2. 根据模板数据获取对应模板的内容要求
-    // const templateContent = await getTemplateContent(bestMatchTemplate)
-    // console.log(templateContent)
+    // 2. 根据模板数据获取对应模板的内容要求
+    const templateContent = await getTemplateContent(bestMatchTemplate)
 
-    // // 3. 根据模板内容要求获取对应的 section 组合
-    // const bestMatchSection = await findBestMatchSections(templateContent)
-    // console.log(bestMatchSection)
-    // const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
-    // console.log(bestMatchSectionGroup)
+    // 3. 根据模板内容要求获取对应的 section 组合
+    const bestMatchSection = await findBestMatchSections(templateContent)
+    const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
+    console.log(bestMatchSectionGroup)
 
-    const bestMatchSectionGroup = 'FeaturedCollection,ImageGrid,ImagewithText,Testimonial,ImagewithText'
+    // const bestMatchSectionGroup = 'FeaturedCollection,ImageGrid,ImagewithText,Testimonial,ImagewithText'
 
     // 4. 根据 section 组合模板数据获取文案及图片
     const resultData = await generateData(bestMatchSectionGroup, productType, requirements, uiRequirements)
-    
-    // console.log('ha')
-    // const data = JSON.parse(requirements)
-    // for (const section of data) {
-    //   for (const [key, value] of Object.entries(section.props)) {
-    //     if (key === 'figure') {
-    //       const image_requirements = value.image.requirements;
-    //       console.log(image_requirements)
-    //     }
-    //     if (key === 'blocks') {
-    //       for (const block of value) {
-    //         for (const [block_key, block_value] of Object.entries(block)) {
-    //           if (block_key === 'figure') {
-    //             const image_requirements = block_value.image.requirements;
-    //             console.log(image_requirements)
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
 
-    console.log(`resultData: ${resultData}`)
+    // console.log(`resultData: ${resultData}`)
     setLoading(false)
-    // router.push('/project')
+    router.push('/project')
   }
 
   return (

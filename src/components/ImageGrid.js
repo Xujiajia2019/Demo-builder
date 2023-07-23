@@ -8,7 +8,7 @@ export function ImageGrid({
   height,
 }) {
   return (
-    <section className='container mx-auto flex px-5 my-24 flex-col items-center'>
+    <section className='container mx-auto flex px-5 py-8 flex-col items-center'>
       <div className='text-center'>
         <div className="max-w-xl">
           {heading?.value && (
@@ -24,7 +24,6 @@ export function ImageGrid({
               'relative justify-start flex flex-col w-full px-4',
               height = "aspect-[4/5] sm:aspect-square md:aspect-[4/5] lg:aspect-[4/5]",
             )} key={index}>
-              <div className="absolute inset-0 grid flex-grow grid-flow-col pointer-events-none auto-cols-fr -z-10 content-stretch overflow-clip">
                 <Image
                   className="object-cover w-full"
                   src={card.figure.image.url}
@@ -33,8 +32,7 @@ export function ImageGrid({
                   height={500}
                   alt="test"
                 />
-              </div>
-              <div className='text-center pt-4'>
+              <div className='text-center pt-4 position-absolute'>
                 <h2 className="text-2xl font-medium">{card.heading?.value}</h2>
                 <div className="block mt-1">{card.description.value}</div>
               </div>

@@ -6,7 +6,7 @@ export function SampleProducts({
   blocks,
 }) {
   return (
-    <section className='container mx-auto flex px-5 my-24 flex-col items-center'>
+    <section className='container mx-auto flex px-5 py-8 flex-col items-center'>
       <div className="flex flex-col items-baseline justify-between gap-4 px-6 py-8 sm:px-8 md:px-12 dark:from-contrast/60 dark:text-primary from-primary/60">
         {heading?.value && (
           <h1 className="mb-5 text-5xl font-bold">{heading.value}</h1>
