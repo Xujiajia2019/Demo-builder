@@ -5,6 +5,8 @@ import {ImageGrid} from '../../components/ImageGrid';
 import {ImagewithText} from '../../components/ImagewithText';
 import {Testimonial} from '../../components/Testimonial';
 import {SampleProducts} from '../../components/SampleProducts';
+import {Header} from '../../components/Header';
+import {Footer} from '../../components/Footer';
 import { useEffect, useState } from 'react';
 
 const renderComponent = (componentName, props) => {
@@ -43,6 +45,8 @@ export default function Index() {
   }, [])
 
   return (
+    <>
+    <Header />
     <div>
       {data.map((item) => {
         const componentName = item[Object.keys(item)[0]];
@@ -52,5 +56,7 @@ export default function Index() {
         );
       })}
     </div>
+    <Footer />
+    </>
   );
 }

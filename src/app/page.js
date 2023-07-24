@@ -196,7 +196,7 @@ export default function Index() {
 
     // console.log(`resultData: ${resultData}`)
     setLoading(false)
-    router.push('/project')
+    router.push('/preview')
   }
 
   return (
@@ -205,7 +205,7 @@ export default function Index() {
         <div className=""></div>
         <div className="hero-content text-center">
           <div className="max-w-xl">
-            <h1 className="mb-5 text-5xl font-bold">Start building your website</h1>
+            <h1 className="mb-5 text-5xl font-bold">Start building your homepage</h1>
             {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
             {step === 2 && <StepTwo onNext={handleNext} requirements={requirements} setRequirements={setRequirements} />}
             {step === 3 && <StepThree isLoading={loading} onSubmit={handleSubmit} uiRequirements={uiRequirements} setUIRequirements={setUIRequirements}/>}
