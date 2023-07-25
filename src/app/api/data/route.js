@@ -3,9 +3,7 @@ import fs from "fs";
 import path from "path";
 import { OpenAIApi, Configuration } from "openai";
 
-export const config = {
-  runtime: 'edge', // 指定函数的运行时
-};
+export const runtime = 'edge';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
