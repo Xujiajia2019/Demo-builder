@@ -31,8 +31,9 @@ function StepTwo(props) {
       </label>
       <input autoFocus value={props.requirements}
         onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <p className="text-left text-gray-400 mt-2">Highlight one of my main products, include core features of the product, and user reviews......</p>
+      <p className="text-left text-gray-400 mt-2">Show my main product, highlight the key features, introduce about the brand...</p>
       <button type="submit" className={props.isLoading ? "btn mt-4 btn-primary loading" : "btn mt-4 btn-primary"}>Start building</button>
+      {props.error ? <p className="text-error">There is something wrong, please try again.</p> : null}
     </form>
   )
 }
@@ -42,6 +43,7 @@ export default function Index() {
   const [productType, setProductType] = useState("");
   const [requirements, setRequirements] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const router = useRouter()
 
@@ -54,7 +56,7 @@ export default function Index() {
 
   async function findBestMatchTemplate() {
     const SECRET_KEY = "app-lGjGNpPo4E28Rtx0if4EbX7P";
-    const prompt = `${requirements}.Only output with template name with no other words or punctuation, even if the Answer.The output needs to be exactly the same as the data given.Output example:temp_1`;
+    const prompt = `${requirements}`;
 
     const headers = {
       Authorization: `Bearer ${SECRET_KEY}`,
@@ -99,7 +101,7 @@ export default function Index() {
 
   async function findBestMatchSections(templateContentRequirements) {
     const SECRET_KEY = "app-mPTrm0OdnSOfHDZ3lNlgnbMO";
-    const prompt = `${templateContentRequirements}.Your output should only contain the section names in order,separated by commas,do not use spaces periods and other punctuation other than commas`;
+    const prompt = `${templateContentRequirements}`;
   
     const headers = {
       Authorization: `Bearer ${SECRET_KEY}`,
@@ -155,6 +157,8 @@ export default function Index() {
     if (response.ok) {
       return data;
     } else {
+      setLoading(false)
+      setError(true)
       throw new Error(data.error);
     }
   }
@@ -191,7 +195,7 @@ export default function Index() {
           <div className="max-w-xl">
             <h1 className="mb-5 text-5xl font-bold">Start building your homepage</h1>
             {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
-            {step === 2 && <StepTwo isLoading={loading} onSubmit={handleSubmit} requirements={requirements} setRequirements={setRequirements} />}
+            {step === 2 && <StepTwo isLoading={loading} error={error} onSubmit={handleSubmit} requirements={requirements} setRequirements={setRequirements} />}
           </div>
         </div>
       </div>
