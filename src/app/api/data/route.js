@@ -61,7 +61,7 @@ const getCopyJson = async (schema, type) => {
   }
 }
 
-const getImageRequirementsJson = async (schema, type, uiRequirements) => {
+const getImageRequirementsJson = async (schema, type) => {
   const prompt = `You are a designer of an e-commerce website, and the product type of your website is ${type}.Please provide requirements for the images in the 'figure' object of each section in the JSON data.
                   
                   The JSON data structure is as follows:
@@ -157,13 +157,12 @@ export async function POST(req) {
     const request = await req.json()
     const sections = request.sections
     const type = request.type
-    const uiRequirements = request.uiRequirements
 
     if (sections !== undefined) {
       const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
       const sectionContentJson = getSectionContentJson(sections, schemaData);
       const copyJson = await getCopyJson(sectionContentJson, type)
-      const imageRequirementsJson = await getImageRequirementsJson(copyJson, type, uiRequirements)
+      const imageRequirementsJson = await getImageRequirementsJson(copyJson, type)
       const imageJson = await getImageJson(imageRequirementsJson)
       
       const resultFilePath = path.join(process.cwd(), "data", "module.json");

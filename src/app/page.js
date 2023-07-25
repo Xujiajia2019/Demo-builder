@@ -14,6 +14,7 @@ function StepOne(props) {
         <span>What is your product type?</span>
       </label>
       <input autoFocus value={props.productType} onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
+      <p className="text-left text-gray-400 mt-2">Phones, Earphones, E-bike......</p>
       <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
     </form>
   )
@@ -24,28 +25,13 @@ function StepTwo(props) {
     props.setRequirements(event.target.value);
   }
   return (
-    <form onSubmit={(event) => props.onNext(event)}>
+    <form onSubmit={(event) => props.onSubmit(event)}>
       <label className="label">
         <span>What is your requirements?</span>
       </label>
       <input autoFocus value={props.requirements}
         onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
-    </form>
-  )
-}
-
-function StepThree(props) {
-  function handleChange(event) {
-    props.setUIRequirements(event.target.value);
-  }
-  return (
-    <form onSubmit={(event) => props.onSubmit(event)}>
-      <label className="label">
-        <span>What is your UI requirements?</span>
-      </label>
-      <input autoFocus value={props.uiRequirements}
-        onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
+      <p className="text-left text-gray-400 mt-2">Highlight one of my main products, include core features of the product, and user reviews......</p>
       <button type="submit" className={props.isLoading ? "btn mt-4 btn-primary loading" : "btn mt-4 btn-primary"}>Start building</button>
     </form>
   )
@@ -55,7 +41,6 @@ export default function Index() {
   const [step, setStep] = useState(1)
   const [productType, setProductType] = useState("");
   const [requirements, setRequirements] = useState("");
-  const [uiRequirements, setUIRequirements] = useState("");
   const [loading, setLoading] = useState(false);
 
   const router = useRouter()
@@ -154,7 +139,7 @@ export default function Index() {
     }
   }
 
-  async function generateData(sections, type, requirements, uiRequirements) {
+  async function generateData(sections, type, requirements) {
     const response = await fetch(`/api/data`, {
       method: "POST",
       headers: {
@@ -163,8 +148,7 @@ export default function Index() {
       body: JSON.stringify({
         sections,
         type,
-        requirements,
-        uiRequirements
+        requirements
       }),
     });
     const data = await response.json();
@@ -192,7 +176,7 @@ export default function Index() {
     // const bestMatchSectionGroup = 'FeaturedCollection,ImageGrid,ImagewithText,Testimonial,ImagewithText'
 
     // 4. 根据 section 组合模板数据获取文案及图片
-    const resultData = await generateData(bestMatchSectionGroup, productType, requirements, uiRequirements)
+    const resultData = await generateData(bestMatchSectionGroup, productType, requirements)
 
     // console.log(`resultData: ${resultData}`)
     setLoading(false)
@@ -207,8 +191,7 @@ export default function Index() {
           <div className="max-w-xl">
             <h1 className="mb-5 text-5xl font-bold">Start building your homepage</h1>
             {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
-            {step === 2 && <StepTwo onNext={handleNext} requirements={requirements} setRequirements={setRequirements} />}
-            {step === 3 && <StepThree isLoading={loading} onSubmit={handleSubmit} uiRequirements={uiRequirements} setUIRequirements={setUIRequirements}/>}
+            {step === 2 && <StepTwo isLoading={loading} onSubmit={handleSubmit} requirements={requirements} setRequirements={setRequirements} />}
           </div>
         </div>
       </div>
