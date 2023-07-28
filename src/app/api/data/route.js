@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-// import { OpenAIApi, Configuration } from "openai";
-import {
-  Configuration,
-  OpenAIApi
-} from 'openai-edge'
+import { OpenAIApi, Configuration } from "openai";
 
 export const runtime = 'edge'
 
