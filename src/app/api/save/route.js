@@ -20,7 +20,8 @@ export async function POST(req) {
   if (req.method === "POST") {
     const request = await req.json()
     const imageJson = JSON.stringify(request.data)
-  
+    const {type, requirements} = request.data
+
     if (imageJson !== undefined) {
       const resultFilePath = path.join(process.cwd(), "data", "module.json");
       

@@ -32,9 +32,13 @@ const getCopyJson = async (schema, type) => {
       model: "gpt-3.5-turbo",
       messages: [
         {"role": "user", "content": prompt}
-      ]
+      ],
+      stream: false
     })
-    const data = res.data.choices[0].message.content
+    const response = await res.json()
+
+    console.log(response)
+    const data = response.choices[0].message.content
     console.log('get copy success')
     return data
   } catch (error) {
@@ -63,7 +67,8 @@ const getImageRequirementsJson = async (schema, type) => {
         {"role": "user", "content": prompt}
       ]
     })
-    const data = res.data.choices[0].message.content
+    const response = await res.json()
+    const data = response.choices[0].message.content
     console.log('get image requirements success')
     return data
   } catch (error) {
@@ -82,12 +87,13 @@ const getImageJson = async (schema) => {
           if (key === 'figure') {
             const image_requirements = value.image.requirements;
             if (image_requirements) {
-              const response = await openai.createImage({
+              const res = await openai.createImage({
                 prompt: image_requirements,
                 n: 1,
                 size: "1024x1024",
               });
-              const image_url = response.data.data[0].url;
+              const response = await res.json()
+              const image_url = response.data[0].url;
               value.image.url = image_url;
             }
           }
@@ -97,12 +103,13 @@ const getImageJson = async (schema) => {
                 if (block_key === 'figure') {
                   const image_requirements = block_value.image.requirements;
                   if (image_requirements) {
-                    const response = await openai.createImage({
+                    const res = await openai.createImage({
                       prompt: image_requirements,
                       n: 1,
                       size: "1024x1024",
                     });
-                    const image_url = response.data.data[0].url;
+                    const response = await res.json()
+                    const image_url = response.data[0].url;
                     block_value.image.url = image_url;
                   }
                 }

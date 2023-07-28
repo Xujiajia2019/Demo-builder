@@ -133,14 +133,16 @@ export default function Index() {
     }
   }
 
-  async function saveData(jsonData) {
+  async function saveData(jsonData, type, requirements) {
     const response = await fetch(`/api/save`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data: jsonData
+        data: jsonData,
+        type,
+        requirements
       })
     });
     const data = await response.json();
@@ -194,7 +196,7 @@ export default function Index() {
 
     const resultData = await generateData(schemaData, productType, requirements)
 
-    const writeData = await saveData(resultData)
+    const writeData = await saveData(resultData, productType, requirements)
 
     setLoading(false)
     router.push('/preview')
