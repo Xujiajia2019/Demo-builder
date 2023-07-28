@@ -123,19 +123,29 @@ export default function Index() {
     return best_match_sections;
   };
 
-  async function generateImage(schema) {
-    const response = await fetch(`/api/images`, {
+  async function getSectionContentJson(sections) {
+    const response = await fetch(`/api/sections?sections=${sections}`);
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.error);
+    }
+  }
+
+  async function saveData(jsonData) {
+    const response = await fetch(`/api/save`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        schema
-      }),
+        data: jsonData
+      })
     });
     const data = await response.json();
     if (response.ok) {
-      return data.content;
+      return data;
     } else {
       throw new Error(data.error);
     }
@@ -153,8 +163,8 @@ export default function Index() {
         requirements
       }),
     });
-    const data = await response.json();
     if (response.ok) {
+      const data = await response.json();
       return data;
     } else {
       setLoading(false)
@@ -180,12 +190,16 @@ export default function Index() {
     // const bestMatchSectionGroup = 'FeaturedCollection,ImageGrid,ImagewithText,Testimonial,ImagewithText'
 
     // 4. 根据 section 组合模板数据获取文案及图片
-    const resultData = await generateData(bestMatchSectionGroup, productType, requirements)
+    const schemaData = await getSectionContentJson(bestMatchSectionGroup)
 
-    // console.log(`resultData: ${resultData}`)
+    const resultData = await generateData(schemaData, productType, requirements)
+
+    const writeData = await saveData(resultData)
+
     setLoading(false)
     router.push('/preview')
   }
+
 
   return (
     <section>

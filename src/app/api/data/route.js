@@ -1,30 +1,15 @@
 import { NextResponse } from 'next/server';
-import fs from "fs";
-import path from "path";
 import { OpenAIApi, Configuration } from "openai";
 
+export const config = {
+  runtime: 'edge' // this is a pre-requisite
+};
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
-
-
-const schemaFilePath = path.join(process.cwd(), "data", "example_schema.json");
-const getSectionContentJson = (sections, schemaData) => {
-  const desiredOrder = sections.split(",");
-  const rawData = [];
-  for (const sectionName of desiredOrder) {
-    for (const template of schemaData) {
-      if (template.section === sectionName) {
-        rawData.push(template);
-        break;
-      }
-    }
-  }
-  return rawData;
-};
 
 
 const getCopyJson = async (schema, type) => {
@@ -53,7 +38,6 @@ const getCopyJson = async (schema, type) => {
     })
     const data = res.data.choices[0].message.content
     console.log('get copy success')
-    console.log(JSON.stringify(data))
     return data
   } catch (error) {
     console.log(`Generate copy error: ` + error)
@@ -83,7 +67,6 @@ const getImageRequirementsJson = async (schema, type) => {
     })
     const data = res.data.choices[0].message.content
     console.log('get image requirements success')
-    console.log(JSON.stringify(data))
     return data
   } catch (error) {
     console.log(`Generate image requirements error: ` + error)
@@ -131,24 +114,12 @@ const getImageJson = async (schema) => {
         }
       }
       console.log('get image success')
-      return JSON.stringify(data);
+      return data;
     } catch (error) {
       console.log(`Generate image error: ` + error)
       return ({ error: "error", status:404})
     }
   }
-}
-
-const writeFilePromise = (filepath, data) => {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(filepath,data, (err) => {
-      if(err) {
-        reject(err)
-      } else {
-        resolve()
-      }
-    })
-  })
 }
 
 
@@ -159,21 +130,12 @@ export async function POST(req) {
     const type = request.type
 
     if (sections !== undefined) {
-      const schemaData = JSON.parse(fs.readFileSync(schemaFilePath));
-      const sectionContentJson = getSectionContentJson(sections, schemaData);
+      const sectionContentJson = sections
       const copyJson = await getCopyJson(sectionContentJson, type)
       const imageRequirementsJson = await getImageRequirementsJson(copyJson, type)
       const imageJson = await getImageJson(imageRequirementsJson)
       
-      const resultFilePath = path.join(process.cwd(), "data", "module.json");
-      
-      try {
-        console.log(imageJson)
-        await writeFilePromise(resultFilePath, imageJson)
-        return NextResponse.json({write: true});
-      } catch (err) {
-        return NextResponse.json({ error: "Write file failed", status:401 });
-      }
+      return NextResponse.json(imageJson);
     } else {
       return NextResponse.json({ error: "Missing parameters", status:400 });
     }

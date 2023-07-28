@@ -48,11 +48,11 @@ export default function Index() {
     <>
     <Header />
     <div>
-      {data.map((item) => {
+      {data.map((item, index) => {
         const componentName = item[Object.keys(item)[0]];
         const props = item[Object.keys(item)[1]];
         return (
-          <div key={componentName}>{renderComponent(componentName, props)}</div>
+          <div key={`${componentName}-${index}`}>{renderComponent(componentName, props)}</div>
         );
       })}
     </div>
