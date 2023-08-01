@@ -9,20 +9,21 @@ const openai = new OpenAIApi(configuration);
 
 export async function POST (req) {
   const request = await req.json()
-  console.log(request.prompt)
   if (request.prompt) {
     try {
-      const res = await openai.createImage({
-        prompt: request.prompt,
-        n: 1,
-        size: "1024x1024",
-      });
-      const image_url = res.data.data[0].url;
-      return NextResponse.json(image_url)
+      const res = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {"role": "user", "content": request.prompt}
+        ]
+      })
+      const data = res.data.choices[0].message.content
+      return NextResponse.json({data: JSON.parse(data)})
     } catch (error) {
-      console.log(`Generate image error: ` + error)
+      console.log(`Completion error: ` + error)
       return NextResponse.json({ error: "error", status:404})
     }
+    
   }
   return NextResponse.json({ error: "Missing parameters", status:400})
 }

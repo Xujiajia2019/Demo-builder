@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai-edge'
 
-export const runtime = 'edge'
-
 const configuration = new Configuration({
   apiKey: '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',
 });
 
 const openai = new OpenAIApi(configuration);
 
+export const runtime = 'edge'
 
 const getCopyJson = async (schema, type) => {
   const prompt = `You are an operator of an e-commerce website, and the product type of your website is ${type}.
