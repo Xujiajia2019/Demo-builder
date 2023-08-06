@@ -28,7 +28,7 @@ export async function POST(req) {
         await writeFilePromise(resultFilePath, imageJson)
         return NextResponse.json({write: true});
       } catch (err) {
-        return NextResponse.json({ error: "Write file failed", status:401 });
+        return NextResponse.json({ error, status:401 });
       }
     } else {
       return NextResponse.json({ error: "Missing parameters", status:400 });
