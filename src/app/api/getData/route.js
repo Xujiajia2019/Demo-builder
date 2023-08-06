@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from "fs";
 import path from "path";
 
-const resultFilePath = path.join(process.cwd(), "data", "module.json");
+const resultFilePath = path.join(process.cwd(), "tmp", "module.json");
 
 export async function GET(req) {
   if (req.method === "GET") {

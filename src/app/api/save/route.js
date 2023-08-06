@@ -22,7 +22,7 @@ export async function POST(req) {
     const imageJson = JSON.stringify(request.data)
 
     if (imageJson !== undefined) {
-      const resultFilePath = path.join(process.cwd(), "data", "module.json");
+      const resultFilePath = path.join(process.cwd(), "tmp", "module.json");
       
       try {
         await writeFilePromise(resultFilePath, imageJson)
