@@ -18,7 +18,7 @@ export async function POST (req) {
         size: "1024x1024",
       });
       const image_url = res.data.data[0].url;
-      return NextResponse.json(image_url)
+      return NextResponse.json({url: image_url})
     } catch (error) {
       console.log(`Generate image error: ` + error)
       return NextResponse.json({ error: "error", status:404})

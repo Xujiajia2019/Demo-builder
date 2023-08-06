@@ -201,9 +201,9 @@ export default function Index() {
     });
     const data = await response.json();
     if (response.ok) {
-      return data.content;
+      return data.url;
     } else {
-      throw new Error(data.error);
+      return "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
     }
   }
 
