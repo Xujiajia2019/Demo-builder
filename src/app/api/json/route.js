@@ -1,4 +1,4 @@
-import { OpenAIApi, Configuration } from "openai";
+import { Configuration, OpenAIApi } from 'openai-edge'
 import { NextResponse } from 'next/server';
 
 const configuration = new Configuration({
@@ -6,6 +6,8 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+
+export const runtime = 'edge'
 
 export async function POST (req) {
   const request = await req.json()
@@ -17,7 +19,8 @@ export async function POST (req) {
           {"role": "user", "content": request.prompt}
         ]
       })
-      const data = res.data.choices[0].message.content
+      const response = await res.json()
+      const data = response.choices[0].message.content
       return NextResponse.json({data: JSON.parse(data)})
     } catch (error) {
       console.log(`Completion error: ` + error)

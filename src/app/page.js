@@ -233,6 +233,7 @@ export default function Index() {
         }
       }
     }
+    return data
   }
 
   async function saveData(jsonData, type, requirements) {
@@ -277,6 +278,28 @@ export default function Index() {
     }
   }
 
+  async function processItems(sections) {
+    let results = []
+    const items = sections.split(',');
+    for (const item of items) {
+      // 4. 根据 section 组合获取模板数据
+      const schemaData = await getSectionContentJson(item);
+  
+      // 5. 生成文案
+      const copyData = await generateCopyJson(schemaData, productType);
+      console.log(copyData);
+  
+      // 6. 生成图片描述
+      const imageRequirementsData = await generateImageRequirements(copyData, productType);
+      console.log(imageRequirementsData);
+  
+      // 7. 生成图片
+      const result = await getImage(imageRequirementsData);
+      results.push(result[0]);
+    }
+    return results
+  }
+
   async function handleSubmit(event) {
     event.preventDefault()
     setLoading(true)
@@ -290,25 +313,15 @@ export default function Index() {
     const bestMatchSection = await findBestMatchSections(templateContent)
     const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
     console.log(bestMatchSectionGroup)
-
-    // 4. 根据 section 组合获取模板数据
-    const schemaData = await getSectionContentJson(bestMatchSectionGroup)
-
-    // 5. 生成文案
-    const copyData = await generateCopyJson(schemaData, productType)
-    console.log(copyData)
-
-    // 6. 生成图片描述
-    const imageRequirementsData = await generateImageRequirements(copyData, productType)
-    console.log(imageRequirementsData)
-
-    // 7. 生成图片
-    const resultData = await getImage(imageRequirementsData)
+    
+    // Call the function to start the processing
+    const resultData = await processItems(bestMatchSectionGroup);
+    console.log(resultData)
+    
     // const resultData = await generateData(schemaData, productType, requirements)
 
     // 8. 数据存储
     const writeData = await saveData(resultData, productType, requirements)
-
 
     setLoading(false)
     router.push('/preview')
