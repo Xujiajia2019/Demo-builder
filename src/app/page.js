@@ -303,143 +303,51 @@ export default function Index() {
   async function handleSubmit(event) {
     event.preventDefault()
     setLoading(true)
-    // // 1. 根据页面要求获取 Template
-    // const bestMatchTemplate = await findBestMatchTemplate()
+    // 1. 根据页面要求获取 Template
+    const bestMatchTemplate = await findBestMatchTemplate()
 
-    // // 2. 根据模板数据获取对应模板的内容要求
-    // const templateContent = await getTemplateContent(bestMatchTemplate)
+    // 2. 根据模板数据获取对应模板的内容要求
+    const templateContent = await getTemplateContent(bestMatchTemplate)
 
-    // // 3. 根据模板内容要求获取对应的 section 组合
-    // const bestMatchSection = await findBestMatchSections(templateContent)
-    // const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
-    // console.log(bestMatchSectionGroup)
+    // 3. 根据模板内容要求获取对应的 section 组合
+    const bestMatchSection = await findBestMatchSections(templateContent)
+    const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
+    console.log(bestMatchSectionGroup)
     
-    // // Call the function to start the processing
-    // const resultData = await processItems(bestMatchSectionGroup);
-    // console.log(resultData)
+    // Call the function to start the processing
+    const resultData = await processItems(bestMatchSectionGroup);
+    console.log(resultData)
     
-    // // const resultData = await generateData(schemaData, productType, requirements)
+    // const resultData = await generateData(schemaData, productType, requirements)
 
-    const resultData = [
-      {
-          "section": "ImageBanner",
-          "props": {
-              "figure": {
-                  "image": {
-                      "altText": "Electric Bike Image",
-                      "requirements": "An image of the main product, showcasing its design and features",
-                      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-UyQIF8bZlboqZUnG9iCu68de.png?st=2023-08-06T14%3A52%3A12Z&se=2023-08-06T16%3A52%3A12Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-06T07%3A19%3A43Z&ske=2023-08-07T07%3A19%3A43Z&sks=b&skv=2021-08-06&sig=cX3YNputwzG53IT3Q%2BIVW9oEnA8vvfERH6f2jsiP6co%3D"
-                  }
-              },
-              "heading": {
-                  "requirements": "The name of a main product, attractive and short, most 8 words",
-                  "value": "Get On Pedals with Power"
-              },
-              "description": {
-                  "requirements": "A brief description of the main product, unique selling point",
-                  "value": "Experience the joy of effortless and eco-friendly commuting with our top-notch E-bikes. Say goodbye to traffic congestion and embrace the freedom of pedal-assisted rides through any terrain. Discover a new way to explore and commute while reducing your carbon footprint. Embrace the future of transportation with our technologically advanced E-bikes."
-              }
-          }
-      },
-      {
-          "section": "ImagewithText",
-          "props": {
-              "figure": {
-                  "image": {
-                      "altText": "A powerful and sleek e-bike",
-                      "requirements": "Experience the Future of Commuting - a powerful and sleek e-bike",
-                      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-YP9bmDoOboHFU1j6AwcSQWd1.png?st=2023-08-06T14%3A52%3A45Z&se=2023-08-06T16%3A52%3A45Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-05T18%3A11%3A49Z&ske=2023-08-06T18%3A11%3A49Z&sks=b&skv=2021-08-06&sig=Lgsbof1K40VYZyumuRr2O5W4ByYWYX3kvn03xlR27kg%3D"
-                  }
-              },
-              "image_first": false,
-              "heading": {
-                  "value": "Experience the Future of Commuting",
-                  "requirements": "Overview of brand or product advantages"
-              },
-              "description": {
-                  "value": "Introducing our brand new line of E-bikes - the perfect solution for eco-friendly transportation and a convenient way to get around town. With advanced technology and a stylish design, our E-bikes offer a comfortable and effortless riding experience. Say goodbye to traffic jams and hello to smooth journeys as you enjoy the benefits of a motor-assisted ride. Whether you're commuting to work, heading to the grocery store, or simply exploring your city, our E-bikes are the ideal choice. Discover the freedom and efficiency of E-biking today!",
-                  "requirements": "Description of brand or product advantages, unique selling points"
-              }
-          }
-      },
-      {
-          "section": "ImagewithText",
-          "props": {
-              "figure": {
-                  "image": {
-                      "altText": "",
-                      "requirements": "Overview of brand or product advantages",
-                      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-fBuddDrOBI9tkRWLInMceIAS.png?st=2023-08-06T14%3A53%3A08Z&se=2023-08-06T16%3A53%3A08Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-05T18%3A12%3A54Z&ske=2023-08-06T18%3A12%3A54Z&sks=b&skv=2021-08-06&sig=MELQgCHnkS0JoJcmaqWEfteShsa52zT32y5eYqBaaok%3D"
-                  }
-              },
-              "image_first": false,
-              "heading": {
-                  "value": "Discover the Power of E-Bikes",
-                  "requirements": "Overview of brand or product advantages"
-              },
-              "description": {
-                  "value": "Our E-bikes are designed to revolutionize your ride, providing you with an effortless and eco-friendly way to explore your surroundings. With powerful motors and long-lasting batteries, our E-bikes offer unmatched convenience and efficiency. Say goodbye to traffic jams and hello to a new way of commuting. Experience the future of transportation today.",
-                  "requirements": "Description of brand or product advantages, unique selling points"
-              }
-          }
-      },
-      {
-          "section": "Testimonial",
-          "props": {
-              "heading": {
-                  "value": "Customer Testimonials",
-                  "requirements": "Title of Testimonials"
-              },
-              "blocks": [
-                  {
-                      "review": {
-                          "value": "I am extremely satisfied with my e-bike purchase. It has exceeded my expectations in terms of performance and comfort. The electric motor provides a smooth and efficient ride, allowing me to effortlessly navigate through city traffic and conquer challenging terrains. The battery life is impressive and the overall build quality is top-notch. Highly recommended!",
-                          "requirements": "Customer reviews, positive"
-                      },
-                      "figure": {
-                          "image": {
-                              "altText": "Happy customer riding their e-bike",
-                              "requirements": "Image of a happy customer riding their e-bike",
-                              "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-1iDXLEFytRqQ4YIvkEHvEPPE.png?st=2023-08-06T14%3A53%3A37Z&se=2023-08-06T16%3A53%3A37Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-05T20%3A04%3A43Z&ske=2023-08-06T20%3A04%3A43Z&sks=b&skv=2021-08-06&sig=k8EXi5fboOjTKiulVA/hV7WxE2YMV9E3giIFmWmvDu8%3D"
-                          },
-                          "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
-                      },
-                      "customer": {
-                          "value": "John Smith",
-                          "requirements": "Customer name"
-                      }
-                  }
-              ]
-          }
-      },
-      {
-          "section": "ImagewithText",
-          "props": {
-              "figure": {
-                  "image": {
-                      "altText": "",
-                      "requirements": "A visually stunning image showcasing the revolutionary e-bikes.",
-                      "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-9wJR66a4FeHKooM5yvOiqIrv.png?st=2023-08-06T14%3A54%3A02Z&se=2023-08-06T16%3A54%3A02Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-05T18%3A14%3A51Z&ske=2023-08-06T18%3A14%3A51Z&sks=b&skv=2021-08-06&sig=6DTKc4Jcz3gHsricvCWjUZ4uFjN6m8hvizZQVjzdYYg%3D"
-                  }
-              },
-              "image_first": false,
-              "heading": {
-                  "value": "Explore the Future of Transportation",
-                  "requirements": "Overview of brand or product advantages"
-              },
-              "description": {
-                  "value": "Experience the revolution of electric biking with our state-of-the-art e-bikes. Our brand focuses on providing sustainable and efficient transportation solutions for urban areas. With our e-bikes, you can effortlessly commute to work, explore the city, or embark on thrilling adventures off the beaten path. Discover the freedom, convenience, and thrill of e-biking today!",
-                  "requirements": "Description of brand or product advantages, unique selling points"
-              }
-          }
-      }
-  ]
+  //   const resultData = [
+  //     {
+  //         "section": "ImageBanner",
+  //         "props": {
+  //             "figure": {
+  //                 "image": {
+  //                     "altText": "Electric Bike Image latest",
+  //                     "requirements": "An image of the main product, showcasing its design and features",
+  //                     "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-UyQIF8bZlboqZUnG9iCu68de.png?st=2023-08-06T14%3A52%3A12Z&se=2023-08-06T16%3A52%3A12Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-06T07%3A19%3A43Z&ske=2023-08-07T07%3A19%3A43Z&sks=b&skv=2021-08-06&sig=cX3YNputwzG53IT3Q%2BIVW9oEnA8vvfERH6f2jsiP6co%3D"
+  //                 }
+  //             },
+  //             "heading": {
+  //                 "requirements": "The name of a main product, attractive and short, most 8 words",
+  //                 "value": "Get On Pedals with Power Latest"
+  //             },
+  //             "description": {
+  //                 "requirements": "A brief description of the main product, unique selling point",
+  //                 "value": "Experience the joy of effortless and eco-friendly commuting with our top-notch E-bikes. Say goodbye to traffic congestion and embrace the freedom of pedal-assisted rides through any terrain. Discover a new way to explore and commute while reducing your carbon footprint. Embrace the future of transportation with our technologically advanced E-bikes."
+  //             }
+  //         }
+  //     }
+  // ]
 
     // 8. 数据存储
     const writeData = await saveData(resultData, productType, requirements)
 
     setLoading(false)
-    router.push('/preview')
+    router.push('https://demo-store-three.vercel.app/')
   }
 
 

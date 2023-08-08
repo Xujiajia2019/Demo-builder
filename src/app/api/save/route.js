@@ -1,34 +1,23 @@
 import { NextResponse } from 'next/server';
-import fs from "fs";
-import path from "path";
-
-
-const writeFilePromise = (filepath, data) => {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(filepath,data, (err) => {
-      if(err) {
-        reject(err)
-      } else {
-        resolve()
-      }
-    })
-  })
-}
+import { supabase } from '/api'
 
 
 export async function POST(req) {
   if (req.method === "POST") {
     const request = await req.json()
-    const imageJson = JSON.stringify(request.data)
+    const imageJson = request.data
 
     if (imageJson !== undefined) {
-      const resultFilePath = path.join(process.cwd(), "tmp", "module.json");
-      
-      try {
-        await writeFilePromise(resultFilePath, imageJson)
-        return NextResponse.json({write: true});
-      } catch (err) {
-        return NextResponse.json({ err, status:401 });
+      const { data, error } = await supabase
+        .from('Page data')
+        .insert({
+          data: imageJson
+        })
+        .select()
+      if (error) {
+        return NextResponse.json({error, status:401});
+      } else {
+        return NextResponse.json({data});
       }
     } else {
       return NextResponse.json({ error: "Missing parameters", status:400 });

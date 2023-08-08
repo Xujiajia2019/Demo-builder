@@ -1,13 +1,20 @@
 import { NextResponse } from 'next/server';
-import fs from "fs";
-import path from "path";
-
-const resultFilePath = path.join(process.cwd(), "tmp", "module.json");
+import { supabase } from '/api'
 
 export async function GET(req) {
   if (req.method === "GET") {
-    const resultData = JSON.stringify(JSON.parse(fs.readFileSync(resultFilePath)));
-    return NextResponse.json(resultData);
+    let {data, error} = await supabase
+      .from('Page data')
+      .select('data')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single()
+    if (error) {
+      return NextResponse.json({error})
+    } else {
+      const resultData = JSON.stringify(data.data);
+      return NextResponse.json(resultData);
+    }
   } else {
     return NextResponse.json({ error: "Method not allowed", status:405 });
   }
