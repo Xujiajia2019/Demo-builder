@@ -1,47 +1,18 @@
 "use client"
 import { useState} from "react"
 import { useRouter } from 'next/navigation'
+import ProductTypeInput from '../components/ProductTypeInput'
+import RequirementsInput from '../components/RequirementsInput'
+import BuinessNameInput from '../components/BuinessNameInput'
+import ProductsFileUpload from '../components/ProductsFileUpload'
 
-function StepOne(props) {
 
-  function handleChange(event) {
-    props.setProductType(event.target.value);
-  }
-
-  return (
-    <form onSubmit={(event) => props.onNext(event)}>
-      <label className="label">
-        <span>What is your product type?</span>
-      </label>
-      <input autoFocus value={props.productType} onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <p className="text-left text-gray-400 mt-2">Phones, Earphones, E-bike......</p>
-      <button type="submit" className="btn btn-neutral mt-4" >Next Step</button>
-    </form>
-  )
-}
-
-function StepTwo(props) {
-  function handleChange(event) {
-    props.setRequirements(event.target.value);
-  }
-  return (
-    <form onSubmit={(event) => props.onSubmit(event)}>
-      <label className="label">
-        <span>What is your requirements?</span>
-      </label>
-      <input autoFocus value={props.requirements}
-        onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
-      <p className="text-left text-gray-400 mt-2">Show my main product, highlight the key features, introduce about the brand...</p>
-      <button type="submit" className={props.isLoading ? "btn mt-4 btn-primary loading" : "btn mt-4 btn-primary"}>Start building</button>
-      {props.error ? <p className="text-error">There is something wrong, please try again.</p> : null}
-    </form>
-  )
-}
 
 export default function Index() {
-  const [step, setStep] = useState(1)
+  const [buinessName, setBuinessName] = useState("");
   const [productType, setProductType] = useState("");
   const [requirements, setRequirements] = useState("");
+  const [productFile, setProductFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -49,11 +20,7 @@ export default function Index() {
 
   const url = 'https://api.dify.ai/v1/chat-messages'
 
-  function handleNext(event) {
-    event.preventDefault()
-    setStep(step + 1);
-  }
-
+  // 根据页面要求选择 Template 模板
   async function findBestMatchTemplate() {
     const SECRET_KEY = "app-lGjGNpPo4E28Rtx0if4EbX7P";
     const prompt = `${requirements}`;
@@ -79,6 +46,7 @@ export default function Index() {
     return extractTemp(best_match_template);
   }
 
+  // 当 AI 返回不符合格式要求时的容错处理
   function extractTemp(string) {
     const pattern = /temp_[1-2]/;
     const match = string.match(pattern);
@@ -87,8 +55,9 @@ export default function Index() {
     } else {
       return "temp_1";
     }
-  };
+  }
 
+  // 根据模板名称获取对应的内容要求
   async function getTemplateContent(templateName) {
     const response = await fetch(`/api/templates?templateName=${templateName}`);
     const data = await response.json();
@@ -99,6 +68,7 @@ export default function Index() {
     }
   }
 
+  // 根据内容要求生成 section 组合
   async function findBestMatchSections(templateContentRequirements) {
     const SECRET_KEY = "app-mPTrm0OdnSOfHDZ3lNlgnbMO";
     const prompt = `${templateContentRequirements}`;
@@ -123,6 +93,7 @@ export default function Index() {
     return best_match_sections;
   };
 
+  // 获取 Section 的内容结构
   async function getSectionContentJson(sections) {
     const response = await fetch(`/api/sections?sections=${sections}`);
     const data = await response.json();
@@ -133,6 +104,7 @@ export default function Index() {
     }
   }
 
+  // 生成文案
   async function generateCopyJson(schema, type) {
     const prompt = `You are an operator of an e-commerce website, and the product type of your website is ${type}.
                     The JSON data structure is as follows:
@@ -163,6 +135,7 @@ export default function Index() {
     return data.data
   }
 
+  // 生成图片描述
   async function generateImageRequirements(schema, type) {
     const prompt = `You are a designer of an e-commerce website, and the product type of your website is ${type}.Please provide requirements for the images in the 'figure' object of each section in the JSON data.
                   
@@ -189,6 +162,7 @@ export default function Index() {
     return data.data
   }
 
+  // 生成图片 URL
   async function generateImage(prompt) {
     const response = await fetch(`/api/images`, {
       method: "POST",
@@ -207,6 +181,7 @@ export default function Index() {
     }
   }
 
+  // 处理 Json 数据 
   async function getImage(schema) {
     const data = schema
     for (const section of data) {
@@ -236,6 +211,7 @@ export default function Index() {
     return data
   }
 
+  // 将数据存至 supabase
   async function saveData(jsonData, type, requirements) {
     const response = await fetch(`/api/save`, {
       method: "POST",
@@ -277,77 +253,109 @@ export default function Index() {
       throw new Error(data.error);
     }
   }
-
+  // 遍历 Section, 分别处理
   async function processItems(sections) {
     let results = []
     const items = sections.split(',');
     for (const item of items) {
-      // 4. 根据 section 组合获取模板数据
       const schemaData = await getSectionContentJson(item);
-  
-      // 5. 生成文案
+
       const copyData = await generateCopyJson(schemaData, productType);
       console.log(copyData);
   
-      // 6. 生成图片描述
       const imageRequirementsData = await generateImageRequirements(copyData, productType);
       console.log(imageRequirementsData);
   
-      // 7. 生成图片
       const result = await getImage(imageRequirementsData);
       results.push(result[0]);
     }
     return results
   }
 
-  async function handleSubmit(event) {
+  async function uploadProduct(productData) {
+    const response = await fetch(`/api/uploadProducts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({data: productData})
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      setLoading(false)
+      throw new Error(data.error);
+    }
+  }
+
+  async function publishProduct(id) {
+    const response = await fetch(`/api/publishProducts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({data: id})
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      setLoading(false)
+      throw new Error(data.error);
+    }
+  }
+
+
+  async function uploadProductsData () {
+    if (productFile) {
+      const productLists = productFile.map(item => {
+        return {
+          product: {
+            title: item.title,
+            vendor: item.vendor,
+            handle: item.handle,
+            images: [
+              {
+                src: item.featured_image_url,
+                position: 1
+              }
+            ],
+            variants: [
+              {
+                sku: item.sku
+              }
+            ]
+          }
+        }
+      })
+      const uploadPromises = productLists.map(async product => {
+        const productData = await uploadProduct(product)
+        await publishProduct(productData.product.id)
+      })
+      await Promise.all(uploadPromises)
+    }
+  }
+
+  async function onSubmit(event) {
     event.preventDefault()
     setLoading(true)
-    // 1. 根据页面要求获取 Template
-    const bestMatchTemplate = await findBestMatchTemplate()
 
-    // 2. 根据模板数据获取对应模板的内容要求
-    const templateContent = await getTemplateContent(bestMatchTemplate)
+    // const bestMatchTemplate = await findBestMatchTemplate()
+    // const templateContent = await getTemplateContent(bestMatchTemplate)
+    // const bestMatchSection = await findBestMatchSections(templateContent)
+    // const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
+    // const resultData = await processItems(bestMatchSectionGroup);
+    // console.log(resultData)
+    // const writeData = await saveData(resultData, productType, requirements)
 
-    // 3. 根据模板内容要求获取对应的 section 组合
-    const bestMatchSection = await findBestMatchSections(templateContent)
-    const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
-    console.log(bestMatchSectionGroup)
-    
-    // Call the function to start the processing
-    const resultData = await processItems(bestMatchSectionGroup);
-    console.log(resultData)
-    
-    // const resultData = await generateData(schemaData, productType, requirements)
-
-  //   const resultData = [
-  //     {
-  //         "section": "ImageBanner",
-  //         "props": {
-  //             "figure": {
-  //                 "image": {
-  //                     "altText": "Electric Bike Image latest",
-  //                     "requirements": "An image of the main product, showcasing its design and features",
-  //                     "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-js3ZCblXogMFzDrWFIf5Yyv2/user-28phehzqQ8USls9fVH3fLHu9/img-UyQIF8bZlboqZUnG9iCu68de.png?st=2023-08-06T14%3A52%3A12Z&se=2023-08-06T16%3A52%3A12Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-08-06T07%3A19%3A43Z&ske=2023-08-07T07%3A19%3A43Z&sks=b&skv=2021-08-06&sig=cX3YNputwzG53IT3Q%2BIVW9oEnA8vvfERH6f2jsiP6co%3D"
-  //                 }
-  //             },
-  //             "heading": {
-  //                 "requirements": "The name of a main product, attractive and short, most 8 words",
-  //                 "value": "Get On Pedals with Power Latest"
-  //             },
-  //             "description": {
-  //                 "requirements": "A brief description of the main product, unique selling point",
-  //                 "value": "Experience the joy of effortless and eco-friendly commuting with our top-notch E-bikes. Say goodbye to traffic congestion and embrace the freedom of pedal-assisted rides through any terrain. Discover a new way to explore and commute while reducing your carbon footprint. Embrace the future of transportation with our technologically advanced E-bikes."
-  //             }
-  //         }
-  //     }
-  // ]
-
-    // 8. 数据存储
-    const writeData = await saveData(resultData, productType, requirements)
+    await uploadProductsData()
 
     setLoading(false)
-    router.push('https://demo-store-three.vercel.app/')
+    // 打开预览界面
+    setTimeout(() => {
+      router.push('https://demo-store-git-builder-jessiefandb.vercel.app/list');
+    }, 5000);
   }
 
 
@@ -357,9 +365,18 @@ export default function Index() {
         <div className=""></div>
         <div className="hero-content text-center">
           <div className="max-w-xl">
-            <h1 className="mb-5 text-5xl font-bold">Start building your homepage</h1>
-            {step === 1 && <StepOne onNext={handleNext} productType={productType} setProductType={setProductType} />}
-            {step === 2 && <StepTwo isLoading={loading} error={error} onSubmit={handleSubmit} requirements={requirements} setRequirements={setRequirements} />}
+            <h1 className="mb-5 text-5xl font-bold">Start building your commerce site</h1>
+            
+            <form onSubmit={(event) => onSubmit(event)}>
+              <BuinessNameInput buinessName={buinessName} setBuinessName={setBuinessName} />
+              <ProductTypeInput productType={productType} setProductType={setProductType} />
+              <RequirementsInput  requirements={requirements} setRequirements={setRequirements} />
+              <ProductsFileUpload productFile={productFile} setProductFile={setProductFile}/>
+
+              <button type="submit" className={loading ? "btn mt-4 btn-primary loading" : "btn mt-4 btn-primary"}>Start building</button>
+              {error ? <p className="text-error">There is something wrong, please try again.</p> : null}
+            </form>
+            
           </div>
         </div>
       </div>
