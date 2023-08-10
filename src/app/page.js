@@ -342,9 +342,10 @@ export default function Index() {
     event.preventDefault()
     setLoading(true)
 
-    const bestMatchTemplate = await findBestMatchTemplate()
-    const templateContent = await getTemplateContent(bestMatchTemplate)
-    const bestMatchSection = await findBestMatchSections(templateContent)
+    // const bestMatchTemplate = await findBestMatchTemplate()
+    // const templateContent = await getTemplateContent(bestMatchTemplate)
+    // const bestMatchSection = await findBestMatchSections(templateContent)
+    const bestMatchSection = 'ImageBanner,FeaturedCollection,ImagewithText,Testimonial'
     const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
     const resultData = await processItems(bestMatchSectionGroup);
     console.log(resultData)
