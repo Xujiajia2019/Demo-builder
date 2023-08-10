@@ -317,13 +317,14 @@ export default function Index() {
             handle: item.handle,
             images: [
               {
-                src: item.featured_image_url,
+                src: item.image_src,
                 position: 1
               }
             ],
             variants: [
               {
-                sku: item.sku
+                sku: item.sku,
+                price: item.variant_price
               }
             ]
           }
@@ -341,13 +342,13 @@ export default function Index() {
     event.preventDefault()
     setLoading(true)
 
-    // const bestMatchTemplate = await findBestMatchTemplate()
-    // const templateContent = await getTemplateContent(bestMatchTemplate)
-    // const bestMatchSection = await findBestMatchSections(templateContent)
-    // const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
-    // const resultData = await processItems(bestMatchSectionGroup);
-    // console.log(resultData)
-    // const writeData = await saveData(resultData, productType, requirements)
+    const bestMatchTemplate = await findBestMatchTemplate()
+    const templateContent = await getTemplateContent(bestMatchTemplate)
+    const bestMatchSection = await findBestMatchSections(templateContent)
+    const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
+    const resultData = await processItems(bestMatchSectionGroup);
+    console.log(resultData)
+    const writeData = await saveData(resultData, productType, requirements)
 
     await uploadProductsData()
 
