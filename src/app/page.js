@@ -341,13 +341,13 @@ export default function Index() {
     event.preventDefault()
     setLoading(true)
 
-    // const bestMatchTemplate = await findBestMatchTemplate()
-    // const templateContent = await getTemplateContent(bestMatchTemplate)
-    // const bestMatchSection = await findBestMatchSections(templateContent)
-    // const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
-    // const resultData = await processItems(bestMatchSectionGroup);
-    // console.log(resultData)
-    // const writeData = await saveData(resultData, productType, requirements)
+    const bestMatchTemplate = await findBestMatchTemplate()
+    const templateContent = await getTemplateContent(bestMatchTemplate)
+    const bestMatchSection = await findBestMatchSections(templateContent)
+    const bestMatchSectionGroup = bestMatchSection.replaceAll(' ', '')
+    const resultData = await processItems(bestMatchSectionGroup);
+    console.log(resultData)
+    const writeData = await saveData(resultData, productType, requirements)
 
     await uploadProductsData()
 
