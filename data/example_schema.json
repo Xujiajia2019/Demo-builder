@@ -181,13 +181,6 @@
             "value": "",
             "requirements": "Customer reviews, positive"
           },
-          "figure": {
-            "image": {
-              "altText": "",
-              "requirements": "",
-              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
-            }
-          },
           "customer": {
             "value": "",
             "requirements": "Customer name"
@@ -202,77 +195,7 @@
       "heading": {
         "value": "",
         "requirements": "Featured products section title"
-      },
-      "blocks": [
-        {
-          "figure": {
-            "image": {
-              "altText": "",
-              "requirements": "",
-              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
-            }
-          },
-          "title": {
-            "value": "",
-            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
-          },
-          "price": {
-            "value": "",
-            "requirements": "Product price"
-          }
-        },
-        {
-          "figure": {
-            "image": {
-              "altText": "",
-              "requirements": "",
-              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
-            }
-          },
-          "title": {
-            "value": "",
-            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
-          },
-          "price": {
-            "value": "",
-            "requirements": "Product price"
-          }
-        },
-        {
-          "figure": {
-            "image": {
-              "altText": "",
-              "requirements": "",
-              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
-            }
-          },
-          "title": {
-            "value": "",
-            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
-          },
-          "price": {
-            "value": "",
-            "requirements": "Product price"
-          }
-        },
-        {
-          "figure": {
-            "image": {
-              "altText": "",
-              "requirements": "",
-              "url": "https://cdn.shopifycdn.net/s/files/1/0723/7559/9411/files/img-placeholder.jpg?v=1685346613"
-            }
-          },
-          "title": {
-            "value": "",
-            "requirements": "Product name, the name of a product rather than a category, because it will include the price, usually for the priority product you want to sell"
-          },
-          "price": {
-            "value": "",
-            "requirements": "Product price"
-          }
-        }
-      ]     
+      }    
     }
   }
 ]
