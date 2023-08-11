@@ -262,11 +262,16 @@ export default function Index() {
 
       const copyData = await generateCopyJson(schemaData, productType);
       console.log(copyData);
-  
-      const imageRequirementsData = await generateImageRequirements(copyData, productType);
-      console.log(imageRequirementsData);
-  
-      const result = await getImage(imageRequirementsData);
+
+      let result = []
+      if (copyData[0].props.figure) {
+        const imageRequirementsData = await generateImageRequirements(copyData, productType);
+        console.log(imageRequirementsData);
+
+        result = await getImage(imageRequirementsData);
+      } else {
+        result = copyData
+      }
       results.push(result[0]);
     }
     return results
@@ -353,10 +358,10 @@ export default function Index() {
 
     await uploadProductsData()
 
-    setLoading(false)
     // 打开预览界面
     setTimeout(() => {
-      router.push('https://demo-store-git-builder-jessiefandb.vercel.app/list');
+      // setLoading(false)
+      router.push('https://demo-store-git-builder-jessiefandb.vercel.app');
     }, 5000);
   }
 
