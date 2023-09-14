@@ -3,7 +3,7 @@ import { useState} from "react"
 import { useRouter } from 'next/navigation'
 import ProductsFileUpload from '../components/ProductsFileUpload'
 import Input from '../components/Input'
-
+import { Octokit } from "@octokit/core"
 
 
 export default function Index() {
@@ -11,6 +11,9 @@ export default function Index() {
   const [company, setCompany] = useState("");
   const [logo, setLogo] = useState("");
   const [brandStory, setBrandStory] = useState("");
+  const [homepageBannerImage, setHomepageBannerImage] = useState("");
+  const [homepageBannerHeading, setHomepageBannerHeading] = useState("");
+  const [homepageBannerDescription, setHomepageBannerDescription] = useState("");
 
   const [productFile, setProductFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,7 @@ export default function Index() {
   const router = useRouter()
 
   // 将数据存至 supabase
-  async function saveData(jsonData, type, requirements) {
+  async function saveData(jsonData, host) {
     const response = await fetch(`/api/save`, {
       method: "POST",
       headers: {
@@ -27,8 +30,7 @@ export default function Index() {
       },
       body: JSON.stringify({
         data: jsonData,
-        type,
-        requirements
+        host: host
       })
     });
     const data = await response.json();
@@ -79,7 +81,7 @@ export default function Index() {
         return {
           product: {
             title: item.title,
-            vendor: item.vendor,
+            vendor: `${brandName}-${company}`,
             handle: item.handle,
             images: [
               {
@@ -111,10 +113,57 @@ export default function Index() {
     // 上传产品数据
     await uploadProductsData()
 
+    const resultData = {
+      "brand": {
+        "basic_information": {
+          "brand_name": brandName,
+          "vendor": company,
+          "logo": logo
+        },
+        "brand_story": {
+          "brand_story": brandStory
+        }
+      },
+      "homepage_banner": {
+        "figure": {
+          "image": {
+            "url": homepageBannerImage,
+            "altText": "Snowboard"
+          }
+        },
+        "heading": {
+          "value": homepageBannerHeading
+        },
+        "description": {
+          "value": homepageBannerDescription
+        }
+      },
+      "products": {
+        "size": 10
+      }
+    }
+
+    const hostData = `demo-store-git-${brandName.toLowerCase()}-${company.toLowerCase()}-jessiefandb.vercel.app`
     // 将数据存储至 supabase 数据库
-    const writeData = await saveData(resultData, productType, requirements)
+    const writeData = await saveData(resultData, hostData)
+
 
     // 触发 Github actions 构建代码
+    const octokit = new Octokit({
+      auth: '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'
+    })
+
+    await octokit.request('POST /repos/jessiefandb/Demo-store/dispatches', {
+      event_type: 'on-create-store',
+      client_payload: {
+        branch: `${brandName.toLowerCase()}-${company.toLowerCase()}`,
+        unit: false,
+        integration: true
+      },
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    })
 
     // 进入个人中心页面
     router.push('/projects')
@@ -134,6 +183,9 @@ export default function Index() {
               <Input label='Company' value={company} setValue={setCompany}/>
               <Input label='Logo' value={logo} setValue={setLogo}/>
               <Input label='Brand story' value={brandStory} setValue={setBrandStory}/>
+              <Input label='Homepage banner image' value={homepageBannerImage} setValue={setHomepageBannerImage}/>
+              <Input label='Homepage banner heading' value={homepageBannerHeading} setValue={setHomepageBannerHeading}/>
+              <Input label='Brand banner description' value={homepageBannerDescription} setValue={setHomepageBannerDescription}/>
 
               <ProductsFileUpload productFile={productFile} setProductFile={setProductFile}/>
 
