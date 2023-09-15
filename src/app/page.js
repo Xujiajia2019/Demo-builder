@@ -14,6 +14,7 @@ export default function Index() {
   const [homepageBannerImage, setHomepageBannerImage] = useState("");
   const [homepageBannerHeading, setHomepageBannerHeading] = useState("");
   const [homepageBannerDescription, setHomepageBannerDescription] = useState("");
+  const [primaryColor, setPrimaryColor] = useState("");
 
   const [productFile, setProductFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -140,6 +141,9 @@ export default function Index() {
       },
       "products": {
         "size": 10
+      },
+      "design": {
+        "primary_color": primaryColor
       }
     }
 
@@ -186,6 +190,7 @@ export default function Index() {
               <Input label='Homepage banner image' value={homepageBannerImage} setValue={setHomepageBannerImage}/>
               <Input label='Homepage banner heading' value={homepageBannerHeading} setValue={setHomepageBannerHeading}/>
               <Input label='Brand banner description' value={homepageBannerDescription} setValue={setHomepageBannerDescription}/>
+              <Input label='Primary color' value={primaryColor} setValue={setPrimaryColor}/>
 
               <ProductsFileUpload productFile={productFile} setProductFile={setProductFile}/>
 
