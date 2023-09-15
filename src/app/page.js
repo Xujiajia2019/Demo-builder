@@ -118,7 +118,7 @@ export default function Index() {
       "brand": {
         "basic_information": {
           "brand_name": brandName,
-          "vendor": company,
+          "vendor": `${brandName}-${company}`,
           "logo": logo
         },
         "brand_story": {
