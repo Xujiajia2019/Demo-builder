@@ -11,7 +11,7 @@ function Input ({
       <label className="label">
         <span>{label}</span>
       </label>
-      <input value={value} onChange={handleChange} type="text" placeholder="Type here" className="input input-bordered w-full" />
+      <input value={value} onChange={handleChange} type="text" placeholder="Type here" className="input text-dark input-bordered w-full" />
     </div>
   )
 }
