@@ -9,7 +9,6 @@ import { Octokit } from "@octokit/core"
 export default function Index() {
   const [brandName, setBrandName] = useState("");
   const [company, setCompany] = useState("");
-  const [logo, setLogo] = useState("");
   const [brandStory, setBrandStory] = useState("");
   const [homepageBannerImage, setHomepageBannerImage] = useState("");
   const [homepageBannerHeading, setHomepageBannerHeading] = useState("");
@@ -118,8 +117,7 @@ export default function Index() {
       "brand": {
         "basic_information": {
           "brand_name": brandName,
-          "vendor": `${brandName}-${company}`,
-          "logo": logo
+          "vendor": `${brandName}-${company}`
         },
         "brand_story": {
           "brand_story": brandStory
@@ -185,7 +183,6 @@ export default function Index() {
             <form onSubmit={(event) => onSubmit(event)}>
               <Input label='Brand name' value={brandName} setValue={setBrandName}/>
               <Input label='Company' value={company} setValue={setCompany}/>
-              <Input label='Logo' value={logo} setValue={setLogo}/>
               <Input label='Brand story' value={brandStory} setValue={setBrandStory}/>
               <Input label='Homepage banner image' value={homepageBannerImage} setValue={setHomepageBannerImage}/>
               <Input label='Homepage banner heading' value={homepageBannerHeading} setValue={setHomepageBannerHeading}/>
